@@ -1,1 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lunark</title>
 
+<style>
+/* ---------- BASE ---------- */
+
+body {
+    margin: 0;
+    font-family: system-ui, sans-serif;
+    color: white;
+    overflow-x: hidden;
+    background: black;
+}
+
+/* SKY GRADIENT */
+#sky {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    transition: background 2s ease;
+}
+
+/* subtle grain for softness */
+#sky::after {
+    content:"";
+    position:absolute;
+    inset:0;
+    background:url("https://grainy-gradients.vercel.app/noise.svg");
+    opacity:0.15;
+}
+
+/* ---------- GLASS PANELS ---------- */
+
+.panel {
+    backdrop-filter: blur(18px);
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 22px;
+    padding: 28px;
+    box-shadow:
+        0 10px 40px rgba(0,0,0,0.35),
+        inset 0 0 20px rgba(255,255,255,0.05);
+}
+
+/* layout */
+.container {
+    max-width: 950px;
+    margin: auto;
+    padding: 80px 20px;
+}
+
+/* ---------- HEADER ---------- */
+
+h1 {
+    font-size: 3.2em;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+.subtitle {
+    opacity: 0.8;
+}
+
+/* ---------- LIMEKO PANEL ---------- */
+
+.limeko {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    margin-top: 40px;
+    position: relative;
+}
+
+/* lime glow */
+.limeko::before {
+    content:"";
+    position:absolute;
+    inset:-8px;
+    border-radius:26px;
+    background: radial-gradient(
+        circle,
+        rgba(120,255,120,0.35),
+        transparent 70%
+    );
+    z-index:-1;
+    filter: blur(25px);
+}
+
+.limeko img {
+    width:160px;
+    height:160px;
+    object-fit:cover;
+    border-radius:18px;
+}
+
+/* ---------- FLOATING GIFS ---------- */
+
+.gif {
+    position: fixed;
+    width: 110px;
+    pointer-events: none;
+    opacity: 0.9;
+    animation: float 8s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%,100% { transform: translateY(0px); }
+    50% { transform: translateY(-18px); }
+}
+
+/* ---------- STICKERS ---------- */
+
+.sticker {
+    position: fixed;
+    width: 90px;
+    opacity: 0.85;
+}
+
+/* accent glow text */
+.glow {
+    color:#ffd6ff;
+    text-shadow:
+        0 0 10px rgba(255,150,255,0.6),
+        0 0 25px rgba(255,120,255,0.4);
+}
+
+.lime {
+    color:#9cff7a;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="sky"></div>
+
+<!-- floating gifs -->
+<img class="gif" style="top:12%; left:4%;" src="https://www.google.com/url?sa=t&source=web&rct=j&url=https%3A%2F%2Fwww.reddit.com%2Fr%2FMINDWAVEgame%2Fcomments%2F1ilc7bu%2Fmindwave_gif_of_the_day_1%2F&opi=89978449">
+<img class="gif" style="top:70%; right:5%; animation-delay:2s;" src="https://www.google.com/url?sa=t&source=web&rct=j&url=https%3A%2F%2Ftenor.com%2Fview%2Fmindwave-abbie-retro-sad-girl-gif-2683629532072882497&opi=89978449">
+
+<!-- stickers -->
+<img class="sticker" style="bottom:30px; left:30px;" src="https://static.vecteezy.com/system/resources/thumbnails/031/426/657/small/pastel-purple-star-notepaper-journal-sticker-with-transparent-background-png.png">
+<img class="sticker" style="top:40px; right:40px;" src="https://www.google.com/url?sa=t&source=web&rct=j&url=https%3A%2F%2Fgetstickerpack.com%2Fstickers%2Fmindwave-gifs&opi=89978449">
+
+<div class="container">
+
+    <!-- HEADER PANEL -->
+    <div class="panel">
+        <h1 class="glow">Lunark</h1>
+        <p class="subtitle">
+            engine developer • experiments • things in progress
+        </p>
+
+        <p>
+            hi. i make weird tech things and sometimes they turn into
+            entire game engines.
+        </p>
+    </div>
+
+    <!-- LIMEKO PANEL -->
+    <div class="panel limeko">
+        <img src="YOUR_LIMEKO_IMAGE">
+
+        <div>
+            <h2 class="lime">Limeko Engine</h2>
+            <p>
+                A custom game engine focused on creative freedom,
+                atmosphere, and experimentation.
+                Built from scratch because sometimes the only way
+                forward is to make your own tools.
+            </p>
+        </div>
+    </div>
+
+</div>
+
+<script>
+/* ---------- TIME OF DAY SKY ---------- */
+
+const sky = document.getElementById("sky");
+const hour = new Date().getHours();
+
+let gradient;
+
+if (hour >= 6 && hour < 12) {
+    // morning
+    gradient = "linear-gradient(180deg,#ffd6f5,#bde0ff 60%,#0e0f14)";
+}
+else if (hour >= 12 && hour < 18) {
+    // daytime
+    gradient = "linear-gradient(180deg,#a0d8ff,#ffc6ec 60%,#0e0f14)";
+}
+else if (hour >= 18 && hour < 21) {
+    // sunset
+    gradient = "linear-gradient(180deg,#ff9ecb,#caa6ff 60%,#0e0f14)";
+}
+else {
+    // night
+    gradient = "linear-gradient(180deg,#1a1b2e,#3a2a5a 60%,#0e0f14)";
+}
+
+sky.style.background = gradient;
+</script>
+
+</body>
+</html>
