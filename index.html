@@ -7,10 +7,9 @@
 
 <style>
 /* ---------- BASE ---------- */
-
 body {
     margin: 0;
-    font-family: system-ui, sans-serif;
+    font-family: 'Segoe UI', system-ui, sans-serif;
     color: white;
     overflow-x: hidden;
     background: black;
@@ -23,138 +22,131 @@ body {
     z-index: -2;
     transition: background 2s ease;
 }
-
-/* subtle grain for softness */
 #sky::after {
     content:"";
     position:absolute;
     inset:0;
     background:url("https://grainy-gradients.vercel.app/noise.svg");
-    opacity:0.15;
+    opacity:0.12;
 }
 
-/* ---------- GLASS PANELS ---------- */
-
+/* ---------- PANELS ---------- */
 .panel {
-    backdrop-filter: blur(18px);
-    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(20px);
+    background: rgba(255,255,255,0.07);
     border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 22px;
-    padding: 28px;
-    box-shadow:
-        0 10px 40px rgba(0,0,0,0.35),
-        inset 0 0 20px rgba(255,255,255,0.05);
+    border-radius: 24px;
+    padding: 36px;
+    box-shadow: 0 12px 50px rgba(0,0,0,0.35), inset 0 0 18px rgba(255,255,255,0.05);
+    margin-bottom: 32px;
 }
 
-/* layout */
+/* LAYOUT */
 .container {
-    max-width: 950px;
+    max-width: 960px;
     margin: auto;
-    padding: 80px 20px;
+    padding: 80px 24px;
 }
 
 /* ---------- HEADER ---------- */
-
 h1 {
-    font-size: 3.2em;
-    margin-bottom: 8px;
-    letter-spacing: 1px;
+    font-size: 3.4em;
+    margin-bottom: 12px;
+    letter-spacing: 1.2px;
+    line-height: 1.1;
 }
-
 .subtitle {
     opacity: 0.8;
+    font-size: 1.1em;
+    margin-bottom: 16px;
 }
 
 /* ---------- LIMEKO PANEL ---------- */
-
 .limeko {
     display: flex;
-    gap: 24px;
+    gap: 28px;
     align-items: center;
-    margin-top: 40px;
     position: relative;
+    flex-wrap: wrap;
 }
-
-/* lime glow */
 .limeko::before {
     content:"";
     position:absolute;
     inset:-8px;
-    border-radius:26px;
-    background: radial-gradient(
-        circle,
-        rgba(120,255,120,0.35),
-        transparent 70%
-    );
+    border-radius:28px;
+    background: radial-gradient(circle, rgba(120,255,120,0.3), transparent 70%);
     z-index:-1;
-    filter: blur(25px);
+    filter: blur(28px);
 }
-
 .limeko img {
     width:160px;
     height:160px;
     object-fit:cover;
-    border-radius:18px;
+    border-radius:20px;
 }
 
 /* ---------- FLOATING GIFS ---------- */
-
 .gif {
     position: fixed;
-    width: 110px;
+    width: 100px;
     pointer-events: none;
-    opacity: 0.9;
+    opacity: 0.85;
     animation: float 8s ease-in-out infinite;
 }
+.gif:nth-child(1){ animation-delay: 0s; }
+.gif:nth-child(2){ animation-delay: 2s; }
 
 @keyframes float {
     0%,100% { transform: translateY(0px); }
-    50% { transform: translateY(-18px); }
+    50% { transform: translateY(-20px); }
 }
 
 /* ---------- STICKERS ---------- */
-
 .sticker {
     position: fixed;
-    width: 90px;
-    opacity: 0.85;
+    width: 80px;
+    opacity: 0.8;
 }
 
-/* accent glow text */
+/* ---------- TEXT GLOW ---------- */
 .glow {
     color:#ffd6ff;
-    text-shadow:
-        0 0 10px rgba(255,150,255,0.6),
-        0 0 25px rgba(255,120,255,0.4);
+    text-shadow: 0 0 12px rgba(255,150,255,0.6), 0 0 28px rgba(255,120,255,0.4);
 }
-
 .lime {
     color:#9cff7a;
 }
 
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:600px){
+    .limeko {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .limeko img {
+        margin-bottom: 16px;
+    }
+    h1 { font-size: 2.6em; }
+}
 </style>
 </head>
 
 <body>
-
 <div id="sky"></div>
 
-<!-- floating gifs -->
-<img class="gif" style="top:12%; left:4%;" src="https://i.redd.it/iik342t1h3ie1.gif">
-<img class="gif" style="top:70%; right:5%; animation-delay:2s;" src="https://media.tenor.com/JT4q10fzsUEAAAAj/mindwave-abbie.gif">
+<!-- Floating gifs -->
+<img class="gif" style="top:10%; left:5%;" src="https://i.redd.it/iik342t1h3ie1.gif">
+<img class="gif" style="top:65%; right:8%;" src="https://media.tenor.com/JT4q10fzsUEAAAAj/mindwave-abbie.gif">
 
-<!-- stickers -->
-<img class="sticker" style="bottom:30px; left:30px;" src="https://static.vecteezy.com/system/resources/thumbnails/031/426/657/small/pastel-purple-star-notepaper-journal-sticker-with-transparent-background-png.png">
+<!-- Stickers -->
+<img class="sticker" style="bottom:28px; left:28px;" src="https://static.vecteezy.com/system/resources/thumbnails/031/426/657/small/pastel-purple-star-notepaper-journal-sticker-with-transparent-background-png.png">
+<img class="sticker" style="top:20%; right:15%;" src="https://static.vecteezy.com/system/resources/thumbnails/031/426/657/small/pastel-purple-star-notepaper-journal-sticker-with-transparent-background-png.png">
 
 <div class="container">
-
     <!-- HEADER PANEL -->
     <div class="panel">
         <h1 class="glow">Lunark</h1>
-        <p class="subtitle">
-            C# scripter • pro at something • silly idiot
-        </p>
-
+        <p class="subtitle">C# scripter • pro at something • silly idiot</p>
         <p>
             hi. i make weird nerdy things and sometimes they turn into
             game engines. (thanks Violet)
@@ -163,8 +155,7 @@ h1 {
 
     <!-- LIMEKO PANEL -->
     <div class="panel limeko">
-        <img src="YOUR_LIMEKO_IMAGE">
-
+        <img src="YOUR_LIMEKO_IMAGE" alt="Limeko Engine">
         <div>
             <h2 class="lime">Limeko Engine</h2>
             <p>
@@ -174,36 +165,20 @@ h1 {
             </p>
         </div>
     </div>
-
 </div>
 
 <script>
 /* ---------- TIME OF DAY SKY ---------- */
-
 const sky = document.getElementById("sky");
 const hour = new Date().getHours();
-
 let gradient;
 
-if (hour >= 6 && hour < 12) {
-    // morning
-    gradient = "linear-gradient(180deg,#ffd6f5,#bde0ff 60%,#0e0f14)";
-}
-else if (hour >= 12 && hour < 18) {
-    // daytime
-    gradient = "linear-gradient(180deg,#a0d8ff,#ffc6ec 60%,#0e0f14)";
-}
-else if (hour >= 18 && hour < 21) {
-    // sunset
-    gradient = "linear-gradient(180deg,#ff9ecb,#caa6ff 60%,#0e0f14)";
-}
-else {
-    // night
-    gradient = "linear-gradient(180deg,#1a1b2e,#3a2a5a 60%,#0e0f14)";
-}
+if(hour >= 6 && hour < 12) gradient = "linear-gradient(180deg,#ffd6f5,#bde0ff 60%,#0e0f14)";
+else if(hour >= 12 && hour < 18) gradient = "linear-gradient(180deg,#a0d8ff,#ffc6ec 60%,#0e0f14)";
+else if(hour >= 18 && hour < 21) gradient = "linear-gradient(180deg,#ff9ecb,#caa6ff 60%,#0e0f14)";
+else gradient = "linear-gradient(180deg,#1a1b2e,#3a2a5a 60%,#0e0f14)";
 
 sky.style.background = gradient;
 </script>
-
 </body>
 </html>
