@@ -39,6 +39,7 @@ body {
     padding: 36px;
     box-shadow: 0 12px 50px rgba(0,0,0,0.35), inset 0 0 18px rgba(255,255,255,0.05);
     margin-bottom: 32px;
+    position: relative;
 }
 
 /* LAYOUT */
@@ -61,13 +62,29 @@ h1 {
     margin-bottom: 16px;
 }
 
+/* ---------- INTRO IMAGE ---------- */
+.intro-image {
+    width:150px;
+    height:150px;
+    border-radius:18px;
+    margin-bottom:16px;
+}
+
+/* ---------- GIF ---------- */
+.gif {
+    position: absolute;
+    width: 100px;
+    pointer-events: none;
+    opacity: 0.85;
+}
+
 /* ---------- LIMEKO PANEL ---------- */
 .limeko {
     display: flex;
-    gap: 28px;
+    gap: 32px;
     align-items: center;
-    position: relative;
     flex-wrap: wrap;
+    position: relative;
 }
 .limeko::before {
     content:"";
@@ -79,33 +96,16 @@ h1 {
     filter: blur(28px);
 }
 .limeko img {
-    width:160px;
-    height:160px;
-    object-fit:cover;
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
     border-radius:20px;
+    flex-shrink: 0;
 }
 
-/* ---------- FLOATING GIFS ---------- */
-.gif {
-    position: fixed;
-    width: 100px;
-    pointer-events: none;
-    opacity: 0.85;
-    animation: float 8s ease-in-out infinite;
-}
-.gif:nth-child(1){ animation-delay: 0s; }
-.gif:nth-child(2){ animation-delay: 2s; }
-
-@keyframes float {
-    0%,100% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
-}
-
-/* ---------- STICKERS ---------- */
-.sticker {
-    position: fixed;
-    width: 80px;
-    opacity: 0.8;
+/* Limeko text */
+.limeko-text {
+    flex: 1;
 }
 
 /* ---------- TEXT GLOW ---------- */
@@ -118,13 +118,13 @@ h1 {
 }
 
 /* ---------- RESPONSIVE ---------- */
-@media(max-width:600px){
+@media(max-width:700px){
     .limeko {
         flex-direction: column;
         align-items: flex-start;
     }
     .limeko img {
-        margin-bottom: 16px;
+        margin-bottom:16px;
     }
     h1 { font-size: 2.6em; }
 }
@@ -134,37 +134,33 @@ h1 {
 <body>
 <div id="sky"></div>
 
-<!-- Floating gifs -->
-<img class="gif" style="top:10%; left:5%;" src="https://i.redd.it/iik342t1h3ie1.gif">
-<img class="gif" style="top:65%; right:8%;" src="https://media.tenor.com/JT4q10fzsUEAAAAj/mindwave-abbie.gif">
-
-<!-- Stickers -->
-<img class="sticker" style="bottom:28px; left:28px;" src="https://static.vecteezy.com/system/resources/thumbnails/031/426/657/small/pastel-purple-star-notepaper-journal-sticker-with-transparent-background-png.png">
-<img class="sticker" style="top:20%; right:15%;" src="https://static.vecteezy.com/system/resources/thumbnails/031/426/657/small/pastel-purple-star-notepaper-journal-sticker-with-transparent-background-png.png">
-
 <div class="container">
+
     <!-- HEADER PANEL -->
     <div class="panel">
+        <img class="intro-image" src="YOUR_INTRO_IMAGE_URL" alt="Intro Image">
         <h1 class="glow">Lunark</h1>
         <p class="subtitle">C# scripter • pro at something • silly idiot</p>
         <p>
             hi. i make weird nerdy things and sometimes they turn into
             game engines. (thanks Violet)
         </p>
+        <img class="gif" style="bottom:20px; right:20px;" src="YOUR_GIF_URL" alt="Floating GIF">
     </div>
 
     <!-- LIMEKO PANEL -->
     <div class="panel limeko">
-        <img src="YOUR_LIMEKO_IMAGE" alt="Limeko Engine">
-        <div>
+        <img src="YOUR_LIMEKO_IMAGE_URL" alt="Limeko Engine">
+        <div class="limeko-text">
             <h2 class="lime">Limeko Engine</h2>
             <p>
-                A custom game engine i made to take
-                all of the good things about other engines,
-                and throw it into one.
+                A custom game engine I made to take all of the good things about other engines
+                and throw them into one. Everything you love, streamlined, and ready for your 
+                projects.
             </p>
         </div>
     </div>
+
 </div>
 
 <script>
@@ -180,5 +176,6 @@ else gradient = "linear-gradient(180deg,#1a1b2e,#3a2a5a 60%,#0e0f14)";
 
 sky.style.background = gradient;
 </script>
+
 </body>
 </html>
