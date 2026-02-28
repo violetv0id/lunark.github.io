@@ -12,28 +12,13 @@ body {
     font-family: 'Segoe UI', system-ui, sans-serif;
     color: white;
     overflow-x: hidden;
-    background: black;
-}
-
-/* SKY GRADIENT */
-#sky {
-    position: fixed;
-    inset: 0;
-    z-index: -2;
-    transition: background 2s ease;
-}
-#sky::after {
-    content:"";
-    position:absolute;
-    inset:0;
-    background:url("https://grainy-gradients.vercel.app/noise.svg");
-    opacity:0.12;
+    background: linear-gradient(180deg, #0d0d13, #1f1f2e);
 }
 
 /* ---------- PANELS ---------- */
 .panel {
     backdrop-filter: blur(20px);
-    background: rgba(255,255,255,0.07);
+    background: rgba(255,255,255,0.05);
     border: 1px solid rgba(255,255,255,0.15);
     border-radius: 24px;
     padding: 36px;
@@ -42,7 +27,7 @@ body {
     position: relative;
 }
 
-/* LAYOUT */
+/* ---------- LAYOUT ---------- */
 .container {
     max-width: 960px;
     margin: auto;
@@ -50,9 +35,29 @@ body {
 }
 
 /* ---------- HEADER ---------- */
+.header-flex {
+    display: flex;
+    align-items: flex-start;
+    gap: 32px;
+    position: relative;
+}
+
+.intro-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 18px;
+    flex-shrink: 0;
+}
+
+.header-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
 h1 {
     font-size: 3.4em;
-    margin-bottom: 12px;
+    margin: 0 0 8px 0;
     letter-spacing: 1.2px;
     line-height: 1.1;
 }
@@ -62,20 +67,42 @@ h1 {
     margin-bottom: 16px;
 }
 
-/* ---------- INTRO IMAGE ---------- */
-.intro-image {
-    width:150px;
-    height:150px;
-    border-radius:18px;
-    margin-bottom:16px;
-}
-
 /* ---------- GIF ---------- */
 .gif {
     position: absolute;
     width: 100px;
     pointer-events: none;
     opacity: 0.85;
+    bottom: 20px;
+    right: 20px;
+}
+
+/* ---------- BUTTONS ---------- */
+.buttons {
+    margin-top: 24px;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+.button-big {
+    background-color: #9cff7a;
+    color: #0e0f14;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-size: 1.1em;
+    cursor: pointer;
+    text-decoration: none;
+}
+.button-small {
+    background-color: rgba(255,255,255,0.12);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 0.95em;
+    cursor: pointer;
+    text-decoration: none;
 }
 
 /* ---------- LIMEKO PANEL ---------- */
@@ -91,7 +118,7 @@ h1 {
     position:absolute;
     inset:-8px;
     border-radius:28px;
-    background: radial-gradient(circle, rgba(120,255,120,0.3), transparent 70%);
+    background: radial-gradient(circle, rgba(120,255,120,0.25), transparent 70%);
     z-index:-1;
     filter: blur(28px);
 }
@@ -99,11 +126,9 @@ h1 {
     width: 180px;
     height: 180px;
     object-fit: cover;
-    border-radius:20px;
+    border-radius: 20px;
     flex-shrink: 0;
 }
-
-/* Limeko text */
 .limeko-text {
     flex: 1;
 }
@@ -119,6 +144,14 @@ h1 {
 
 /* ---------- RESPONSIVE ---------- */
 @media(max-width:700px){
+    .header-flex {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .header-text {
+        width: 100%;
+    }
+    h1 { font-size: 2.6em; }
     .limeko {
         flex-direction: column;
         align-items: flex-start;
@@ -126,26 +159,30 @@ h1 {
     .limeko img {
         margin-bottom:16px;
     }
-    h1 { font-size: 2.6em; }
 }
 </style>
 </head>
 
 <body>
-<div id="sky"></div>
 
 <div class="container">
 
     <!-- HEADER PANEL -->
-    <div class="panel">
+    <div class="panel header-flex">
         <img class="intro-image" src="profile.png" alt="Intro Image">
-        <h1 class="glow">Lunark</h1>
-        <p class="subtitle">C# scripter • pro at something • silly idiot</p>
-        <p>
-            hi. i make weird nerdy things and sometimes they turn into
-            game engines. (thanks Violet)
-        </p>
-        <img class="gif" style="bottom:20px; right:20px;" src="https://i.redd.it/iik342t1h3ie1.gif" alt="Floating GIF">
+        <div class="header-text">
+            <h1 class="glow">Lunark</h1>
+            <p class="subtitle">C# scripter • pro at something • silly idiot</p>
+            <p>
+                hi. i make weird nerdy things and sometimes they turn into
+                game engines. (thanks Violet)
+            </p>
+            <div class="buttons">
+                <a class="button-big" href="https://lunark.net/limeko" target="_blank">Go to Limeko</a>
+                <a class="button-small" href="https://github.com/username/lunark" target="_blank">Source Code</a>
+            </div>
+        </div>
+        <img class="gif" src="fun.gif" alt="Floating GIF">
     </div>
 
     <!-- LIMEKO PANEL -->
@@ -154,27 +191,13 @@ h1 {
         <div class="limeko-text">
             <h2 class="lime">Limeko Engine</h2>
             <p>
-                A custom game engine i made to take all of the good things about other engines
+                A custom game engine I made to take all of the good things about other engines
                 and throw them into one.
             </p>
         </div>
     </div>
 
 </div>
-
-<script>
-/* ---------- TIME OF DAY SKY ---------- */
-const sky = document.getElementById("sky");
-const hour = new Date().getHours();
-let gradient;
-
-if(hour >= 6 && hour < 12) gradient = "linear-gradient(180deg,#ffd6f5,#bde0ff 60%,#0e0f14)";
-else if(hour >= 12 && hour < 18) gradient = "linear-gradient(180deg,#a0d8ff,#ffc6ec 60%,#0e0f14)";
-else if(hour >= 18 && hour < 21) gradient = "linear-gradient(180deg,#ff9ecb,#caa6ff 60%,#0e0f14)";
-else gradient = "linear-gradient(180deg,#1a1b2e,#3a2a5a 60%,#0e0f14)";
-
-sky.style.background = gradient;
-</script>
 
 </body>
 </html>
