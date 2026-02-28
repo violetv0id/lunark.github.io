@@ -13,9 +13,17 @@ body {
     color: white;
     overflow-x: hidden;
     background: linear-gradient(180deg, #0d0d13, #1f1f2e);
+    scroll-behavior: smooth;
 }
 
-/* ---------- PANELS ---------- */
+/* ---------- CONTAINER ---------- */
+.container {
+    max-width: 960px;
+    margin: auto;
+    padding: 60px 24px;
+}
+
+/* ---------- PANEL STYLE (now flowing) ---------- */
 .panel {
     backdrop-filter: blur(20px);
     background: rgba(255,255,255,0.05);
@@ -23,23 +31,21 @@ body {
     border-radius: 24px;
     padding: 36px;
     box-shadow: 0 12px 50px rgba(0,0,0,0.35), inset 0 0 18px rgba(255,255,255,0.05);
-    margin-bottom: 32px;
-    position: relative;
+    margin-bottom: 48px;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
-
-/* ---------- LAYOUT ---------- */
-.container {
-    max-width: 960px;
-    margin: auto;
-    padding: 80px 24px;
+.panel:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 70px rgba(0,0,0,0.45), inset 0 0 18px rgba(255,255,255,0.07);
 }
 
 /* ---------- HEADER ---------- */
 .header-flex {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 32px;
     position: relative;
+    flex-wrap: wrap;
 }
 
 .intro-image {
@@ -47,22 +53,25 @@ body {
     height: 150px;
     border-radius: 18px;
     flex-shrink: 0;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+.intro-image:hover {
+    transform: scale(1.05) rotate(2deg);
 }
 
 .header-text {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+    flex: 1;
 }
 
 h1 {
     font-size: 3.4em;
-    margin: 0 0 8px 0;
+    margin: 0 0 12px 0;
     letter-spacing: 1.2px;
     line-height: 1.1;
 }
 .subtitle {
-    opacity: 0.8;
+    opacity: 0.85;
     font-size: 1.1em;
     margin-bottom: 16px;
 }
@@ -70,11 +79,14 @@ h1 {
 /* ---------- GIF ---------- */
 .gif {
     position: absolute;
-    width: 100px;
+    width: 120px;
     pointer-events: none;
-    opacity: 1.00;
     top: 20px;
     right: 20px;
+    transition: transform 0.3s ease;
+}
+.gif:hover {
+    transform: rotate(12deg);
 }
 
 /* ---------- BUTTONS ---------- */
@@ -85,7 +97,7 @@ h1 {
     flex-wrap: wrap;
 }
 .button-big {
-    background-color: #9cff7a;
+    background: linear-gradient(90deg, #9cff7a, #5effa0);
     color: #0e0f14;
     border: none;
     padding: 14px 28px;
@@ -93,6 +105,11 @@ h1 {
     font-size: 1.1em;
     cursor: pointer;
     text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.button-big:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
 }
 .button-small {
     background-color: rgba(255,255,255,0.12);
@@ -103,6 +120,10 @@ h1 {
     font-size: 0.95em;
     cursor: pointer;
     text-decoration: none;
+    transition: background 0.2s ease;
+}
+.button-small:hover {
+    background-color: rgba(255,255,255,0.25);
 }
 
 /* ---------- LIMEKO PANEL ---------- */
@@ -112,6 +133,7 @@ h1 {
     align-items: center;
     flex-wrap: wrap;
     position: relative;
+    overflow: hidden;
 }
 .limeko::before {
     content:"";
@@ -128,6 +150,10 @@ h1 {
     object-fit: cover;
     border-radius: 20px;
     flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+.limeko img:hover {
+    transform: scale(1.08) rotate(-2deg);
 }
 .limeko-text {
     flex: 1;
@@ -144,15 +170,8 @@ h1 {
 
 /* ---------- RESPONSIVE ---------- */
 @media(max-width:700px){
-    .header-flex {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    .header-text {
-        width: 100%;
-    }
     h1 { font-size: 2.6em; }
-    .limeko {
+    .header-flex, .limeko {
         flex-direction: column;
         align-items: flex-start;
     }
@@ -169,21 +188,24 @@ h1 {
 
     <!-- HEADER PANEL -->
     <div class="panel header-flex">
-        <img class="intro-image" src="profile.png" alt="Error">
+        <img class="intro-image" src="profile.png" alt="Profile Image">
         <div class="header-text">
             <h1 class="glow">Lunark</h1>
             <p class="subtitle">C# scripter • pro at something • silly idiot</p>
             <p>
-                hi. i make weird nerdy things and sometimes they turn into
+                Hi! I make weird nerdy things, and sometimes they turn into
                 game engines. (thanks Violet)
             </p>
+            <div class="buttons">
+                <a class="button-big" href="#limeko">Check Limeko Engine</a>
+            </div>
         </div>
-        <img class="gif" src="https://i.redd.it/iik342t1h3ie1.gif" alt="Error">
+        <img class="gif" src="https://i.redd.it/iik342t1h3ie1.gif" alt="Floating GIF">
     </div>
 
     <!-- LIMEKO PANEL -->
-    <div class="panel limeko">
-        <img src="limeko.png" alt="Error">
+    <div id="limeko" class="panel limeko">
+        <img src="limeko.png" alt="Limeko Engine">
         <div class="limeko-text">
             <h2 class="lime">Limeko Engine</h2>
             <p>
