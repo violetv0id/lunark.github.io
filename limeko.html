@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Limeko Engine</title>
+
+<style>
+
+/* ---------------- RESET ---------------- */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #05060b;
+    color: white;
+    overflow-x: hidden;
+}
+
+/* ---------------- HERO VIDEO ---------------- */
+
+.hero {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.hero video {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(.45) contrast(1.2);
+}
+
+.hero::after {
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+        radial-gradient(circle at center,
+        transparent 40%,
+        rgba(5,6,11,.8));
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:20px;
+}
+
+.hero h1 {
+    font-size: clamp(3rem, 9vw, 7rem);
+    letter-spacing: 8px;
+    font-weight: 800;
+    text-transform: uppercase;
+    animation: fadeUp 1.2s ease;
+}
+
+.hero p {
+    margin-top: 20px;
+    font-size: 1.3rem;
+    opacity: .85;
+    animation: fadeUp 1.6s ease;
+}
+
+.scroll-indicator {
+    position:absolute;
+    bottom:40px;
+    font-size:.9rem;
+    opacity:.6;
+    animation: float 2s infinite ease-in-out;
+}
+
+/* ---------------- SECTIONS ---------------- */
+
+section {
+    max-width: 1100px;
+    margin:auto;
+    padding:120px 24px;
+}
+
+h2 {
+    font-size:2.6rem;
+    margin-bottom:20px;
+}
+
+p {
+    line-height:1.7;
+    opacity:.9;
+    max-width:750px;
+}
+
+/* ---------------- FEATURE GRID ---------------- */
+
+.features {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:40px;
+    margin-top:50px;
+}
+
+.feature {
+    padding:30px;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:14px;
+    background:rgba(255,255,255,.03);
+    transition:.35s;
+}
+
+.feature:hover {
+    transform:translateY(-8px);
+    background:rgba(255,255,255,.06);
+    box-shadow:0 20px 50px rgba(0,0,0,.6);
+}
+
+/* ---------------- SHOWCASE IMAGE ---------------- */
+
+.showcase {
+    text-align:center;
+}
+
+.showcase img {
+    width:100%;
+    border-radius:18px;
+    margin-top:40px;
+    box-shadow:0 40px 100px rgba(0,0,0,.7);
+}
+
+/* ---------------- CTA ---------------- */
+
+.cta {
+    text-align:center;
+}
+
+.button {
+    display:inline-block;
+    margin-top:30px;
+    padding:16px 34px;
+    border-radius:10px;
+    background:linear-gradient(90deg,#7cffc6,#6aa8ff);
+    color:#041018;
+    font-weight:700;
+    text-decoration:none;
+    transition:.25s;
+}
+
+.button:hover {
+    transform:translateY(-4px);
+}
+
+/* ---------------- FOOTER ---------------- */
+
+footer {
+    text-align:center;
+    padding:60px 20px;
+    border-top:1px solid rgba(255,255,255,.08);
+    opacity:.6;
+}
+
+/* ---------------- ANIMATIONS ---------------- */
+
+@keyframes fadeUp {
+    from {
+        opacity:0;
+        transform:translateY(40px);
+    }
+    to {
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes float {
+    0%,100% { transform:translateY(0); }
+    50% { transform:translateY(10px); }
+}
+
+/* ---------------- RESPONSIVE ---------------- */
+
+@media(max-width:800px){
+    h2 { font-size:2rem; }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<header class="hero">
+
+<video autoplay muted loop playsinline>
+    <source src="limeko_header.mp4" type="video/mp4">
+</video>
+
+<div class="hero-content">
+    <h1>LIMEKO</h1>
+    <p>A modern game engine built for flexibility, speed, and control.</p>
+    <div class="scroll-indicator">scroll ↓</div>
+</div>
+
+</header>
+
+
+<!-- ABOUT -->
+<section>
+<h2>Built From Love</h2>
+
+<p>
+Limeko is a custom-built game engine designed to give you your favorite
+features, while also pushing to be the best game engine available. Not for ego--for love of the game.
+</p>
+</section>
+
+
+<!-- FEATURES -->
+<section>
+<h2>Core Systems</h2>
+
+<div class="features">
+
+<div class="feature">
+<h3>OpenGL Rendering</h3>
+<p>A Modern Rendering Pipeline with materials, lighting, and framebuffer workflows, built around OpenGL.</p>
+</div>
+
+<div class="feature">
+<h3>Bepu Physics</h3>
+<p>High-performance physics integration with deterministic simulation and custom entity bindings.</p>
+</div>
+
+<div class="feature">
+<h3>Entity Architecture</h3>
+<p>Flexible component-driven design built for experimentation and rapid iteration.</p>
+</div>
+
+<div class="feature">
+<h3>Engine Tools</h3>
+<p>Debug visualization, runtime inspection, and systems designed to grow alongside development.</p>
+</div>
+
+<div class="feature">
+<h3>Constantly Evolving</h3>
+<p>Limeko Engine is, and forever will be my Viva La Vida, and will always take feedback from it's Community. Regardless of size.</p>
+</div>
+
+</div>
+</section>
+
+
+<!-- SHOWCASE -->
+<section class="showcase">
+<h2>In Motion</h2>
+
+<p>
+Real systems. Real rendering. No templates.
+</p>
+
+<img src="limeko_showcase.png" alt="engine showcase">
+
+</section>
+
+
+<!-- CTA -->
+<section class="cta">
+<h2>Explore the Engine</h2>
+
+<p>
+Limeko is an ongoing journey into how your favorite games work, and what I can do to make your job easier.
+</p>
+
+<a class="button" href="#">View Source</a>
+<a class="button" href="#">Documentation</a>
+
+</section>
+
+
+<footer>
+<p>Limeko Engine  Copyright (C) 2026  lunarK</p>
+</footer>
+
+</body>
+</html>
