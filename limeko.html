@@ -358,19 +358,6 @@ footer{text-align:center;padding:70px 20px;border-top:1px solid rgba(255,255,255
     h2{font-size:2rem}
 }
 
-.media-wrapper {
-    width: 100%;
-    height: 100%;
-    pointer-events: none; /* magic line */
-}
-
-.media-wrapper iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-    pointer-events: auto; /* video still clickable */
-}
-
 </style>
 </head>
 
@@ -503,7 +490,7 @@ cards.forEach(card => {
             "perspective(900px) rotateX(0deg) rotateY(0deg) scale(1)";
     });
 
-    window.addEventListener("mousemove", e => {
+    card.addEventListener("mousemove", e => {
 
         const rect = card.getBoundingClientRect();
 
@@ -563,29 +550,18 @@ async function loadShowcase(){
 
         if(item.type === "youtube"){
             const id = extractYouTubeID(item.src);
-
             if(id){
-                // wrapper that keeps hover/tilt working
-                const wrapper = document.createElement("div");
-                wrapper.className = "media-wrapper";
-
                 const iframe = document.createElement("iframe");
                 iframe.src = `https://www.youtube.com/embed/${id}`;
                 iframe.allow =
                     "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
                 iframe.allowFullscreen = true;
-
                 iframe.style.width = "100%";
                 iframe.style.height = "100%";
                 iframe.style.aspectRatio = "16 / 9";
                 iframe.style.border = "none";
-                iframe.style.borderRadius = "18px";
-
-                // put iframe INSIDE wrapper
-                wrapper.appendChild(iframe);
-
-                // add wrapper instead of iframe directly
-                slide.appendChild(wrapper);
+               iframe.style.borderRadius = "18px";
+                slide.appendChild(iframe);
             }
         }
     }
