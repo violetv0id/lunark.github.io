@@ -406,12 +406,6 @@ p2{line-height:1;opacity:.6;max-width:600px}
     cursor:not-allowed;
 }
 
-.download-note{
-    margin-top:10px;
-    font-size:.9rem;
-    opacity:.6;
-}
-
 /* ---------------- FOOTER ---------------- */
 footer{text-align:center;padding:70px 20px;border-top:1px solid rgba(255,255,255,.08);opacity:.6}
 
@@ -465,8 +459,6 @@ footer{text-align:center;padding:70px 20px;border-top:1px solid rgba(255,255,255
     </button>
 
     <div id="downloadDropdown" class="download-dropdown"></div>
-
-    <div id="downloadNote" class="download-note"></div>
 
 </div>
 <a class="btn btn-secondary" href="https://github.com/violetv0id/Limeko-Engine/tree/main">Source Code</a>
@@ -742,7 +734,6 @@ function findAssetForPlatform(platform){
 const mainBtn = document.getElementById("downloadMain");
 const dropdown = document.getElementById("downloadDropdown");
 const label = document.getElementById("downloadLabel");
-const note = document.getElementById("downloadNote");
 
 let selectedPlatform = detectPlatform();
 
@@ -779,7 +770,6 @@ function updateMainButton(){
     if(!data){
         label.textContent = "Platform not supported";
         mainBtn.disabled = true;
-        note.textContent = "Your platform isn't supported yet...";
         return;
     }
 
@@ -789,7 +779,6 @@ function updateMainButton(){
         label.textContent = `${data.label} not available`;
         mainBtn.disabled = true;
         mainBtn.style.opacity = ".5";
-        note.textContent = "Your platform isn't supported yet...";
         return;
     }
 
@@ -797,7 +786,6 @@ function updateMainButton(){
     mainBtn.style.opacity = "1";
     label.textContent =
         `Download ${latestRelease.tag_name} for ${data.label}`;
-    note.textContent = "";
 }
 
 /* ================================
