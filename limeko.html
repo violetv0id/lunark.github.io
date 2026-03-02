@@ -142,10 +142,43 @@ p2{line-height:1.2;opacity:.6;max-width:760px}
 .feature:hover::before{opacity:1}
 
 /* ---------------- SHOWCASE ---------------- */
-.showcase img{
-    width:100%;border-radius:18px;margin-top:40px;
+.showcase-card{
+    position:relative;
+    margin-top:40px;
+    border-radius:18px;
+    transform-style:preserve-3d;
+    transition:transform .15s ease-out;
+}
+
+/* mint glow behind image */
+.showcase-card::before{
+    content:"";
+    position:absolute;
+    inset:-30px;
+    border-radius:22px;
+    background:radial-gradient(
+        circle,
+        rgba(184,255,216,.35),
+        rgba(184,255,216,.12) 40%,
+        transparent 70%
+    );
+    filter:blur(35px);
+    opacity:.9;
+    z-index:-1;
+    transition:opacity .25s ease;
+}
+
+.showcase-card:hover::before{
+    opacity:1;
+}
+
+.showcase-card img{
+    width:100%;
+    display:block;
+    border-radius:18px;
     box-shadow:0 40px 120px rgba(0,0,0,.8);
-    transform:perspective(900px) rotateX(4deg);
+    transform:translateZ(40px);
+    pointer-events:none;
 }
 
 /* ---------------- BUTTONS ---------------- */
@@ -271,7 +304,9 @@ footer{text-align:center;padding:70px 20px;border-top:1px solid rgba(255,255,255
 <section class="showcase">
 <h2>In Motion</h2>
 <p>Here, you'll find images of the Engine doing it's job. For now, Have this silly image of a Monkey.</p>
-<img src="limeko_showcase.png" alt="engine showcase">
+<div class="showcase-card">
+    <img src="limeko_showcase.png" alt="engine showcase">
+</div>
 </section>
 
 <footer>
@@ -287,6 +322,37 @@ window.addEventListener('resize',resize);resize();
 for(let i=0;i<140;i++){stars.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,size:Math.random()*2,speed:0.2+Math.random()*0.5})}
 function animate(){ctx.clearRect(0,0,canvas.width,canvas.height);ctx.fillStyle='white';stars.forEach(s=>{s.y+=s.speed;if(s.y>canvas.height){s.y=0;s.x=Math.random()*canvas.width}ctx.fillRect(s.x,s.y,s.size,s.size)});requestAnimationFrame(animate)}
 animate();
+</script>
+
+<script>
+const cards = document.querySelectorAll(".showcase-card");
+
+cards.forEach(card => {
+
+    card.addEventListener("mousemove", e => {
+        const rect = card.getBoundingClientRect();
+
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateY = (x - centerX) / 18;
+        const rotateX = (centerY - y) / 18;
+
+        card.style.transform =
+            `perspective(900px)
+             rotateX(${rotateX}deg)
+             rotateY(${rotateY}deg)
+             scale(1.03)`;
+    });
+
+    card.addEventListener("mouseleave", () => {
+        card.style.transform =
+            "perspective(900px) rotateX(0deg) rotateY(0deg) scale(1)";
+    });
+});
 </script>
 
 </body>
