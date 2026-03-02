@@ -34,11 +34,21 @@ body{
     width:100%;height:100%;
     object-fit:cover;
     filter:brightness(.45) contrast(1.2);
+    opacity:.65; /* lets stars show through */
 }
 
 .hero-overlay{
     position:absolute;inset:0;
     background:radial-gradient(circle at center,transparent 30%,rgba(4,5,10,.9));
+}
+
+/* bottom fade so video blends into page */
+.hero-fade-bottom{
+    position:absolute;
+    left:0;right:0;bottom:0;
+    height:180px;
+    background:linear-gradient(to bottom, rgba(4,5,10,0) 0%, rgba(4,5,10,1) 85%);
+    pointer-events:none;
 }
 
 .hero-content{
@@ -190,16 +200,17 @@ footer{text-align:center;padding:70px 20px;border-top:1px solid rgba(255,255,255
 <source src="limeko_header.mp4" type="video/mp4">
 </video>
 <div class="hero-overlay"></div>
+<div class="hero-fade-bottom"></div>
 
 <div class="hero-content">
 <h1>
 <span>L</span><span>I</span><span>M</span><span>E</span><span>K</span>
-<span class="lime-o"><img src="limeko_logo.png" alt="{lg}"></span>
+<span class="lime-o"><img src="lime_logo.png" alt="Limeko logo"></span>
 </h1>
-<p>an experimental engine actively in development. expect weird ideas and occasional sigma-ism</p>
+<p>an experimental engine actively in development. expect weird ideas and occasional brilliance.</p>
 </div>
 
-<div class="scroll">↓ scroll ↓</div>
+<div class="scroll">scroll ↓</div>
 </header>
 
 <svg class="wave" viewBox="0 0 1440 320"><path fill="#04050a" d="M0,96L80,112C160,128,320,160,480,170.7C640,181,800,171,960,144C1120,117,1280,75,1360,53.3L1440,32V320H0Z"></path></svg>
@@ -209,11 +220,14 @@ footer{text-align:center;padding:70px 20px;border-top:1px solid rgba(255,255,255
 <h2>Explore</h2>
 <p>Limeko is basically a public notebook disguised as a game engine. You're welcome to look around.</p>
 <a class="btn btn-primary" href="#">Download</a>
-<a class="btn btn-secondary" href="https://github.com/violetv0id/Limeko-Engine/tree/main">Source Code</a>
-<a class="btn btn-secondary" href="https://github.com/violetv0id/Limeko-Engine/tree/main/Documentation">Documentation 🤓</a>
+<a class="btn btn-secondary" href="https://github.com/violetv0id/Limeko-Engine/tree/main">View Source</a>
+<a class="btn btn-secondary" href="#">Documentation</a>
 </section>
 
-<!-- FEATURES -->
+
+
+
+
 <section>
 <h2>Features (currently surviving)</h2>
 <div class="features">
@@ -243,26 +257,6 @@ footer{text-align:center;padding:70px 20px;border-top:1px solid rgba(255,255,255
 <p>Ideas, feedback, and occasional cursed suggestions slowly shaping direction.</p>
 </div>
 
-</div>
-</section>
-
-<section>
-<div class="split">
-<div class="text">
-<h2>Early Development</h2>
-<p>This engine is unfinished. Parts are experimental. Some systems exist purely because curiosity won an argument.</p>
-<p>The goal isn't polish yet — it's understanding. Build things, break them, rebuild them better.</p>
-</div>
-</div>
-</section>
-
-<section>
-<div class="split right">
-<div class="text">
-<h2>Why Limeko Exists</h2>
-<p>Making engines teaches you what game development actually feels like under the hood. Limeko is a long-term experiment in control, clarity, and learning by doing things the hard way first.</p>
-<p>Pricing? whatever your internet costs to download it. License? GPL v3. Please don't screw me over.</p>
-</div>
 </div>
 </section>
 
