@@ -1,0 +1,12 @@
+{
+  "items": [
+    {
+      "type": "image",
+      "src": "showcase/mokei.png"
+    },
+    {
+      "type": "youtube",
+      "src": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+    }
+  ]
+}

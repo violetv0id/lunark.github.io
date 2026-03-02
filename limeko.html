@@ -107,7 +107,28 @@ section{position:relative;max-width:1100px;margin:auto;padding:120px 24px;z-inde
 h2{font-size:2.5rem;margin-bottom:18px}
 
 p{line-height:1.7;opacity:.9;max-width:760px}
-p2{line-height:1.2;opacity:.6;max-width:760px}
+p2{line-height:1;opacity:.6;max-width:600px}
+.wowielink{
+    color:#b8ffd8;
+    text-decoration:none;
+    position:relative;
+    display:inline-block;
+}
+
+.wowielink::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-4px;
+    width:0%;
+    height:2px;
+    background:#b8ffd8;
+    transition:width .25s ease;
+}
+
+.wowielink:hover::after{
+    width:100%;
+}
 
 /* ---------------- WAVY DIVIDER ---------------- */
 .wave{display:block;width:100%;height:120px}
@@ -123,63 +144,177 @@ p2{line-height:1.2;opacity:.6;max-width:760px}
     border:1px solid rgba(255,255,255,.08);
     backdrop-filter:blur(10px);
     transition:.35s;
-    user-select:none;
-    cursor:default;
+    isolation:isolate;
+    will-change:transform;
 }
 
-.feature:hover{transform:translateY(-10px) scale(1.02);box-shadow:0 25px 70px rgba(0,0,0,.7)}
+/* lift */
+.feature:hover{
+    transform:translateY(-18px) scale(1.035);
+    filter:brightness(1.07);
 
+    box-shadow:
+        0 12px 24px rgba(0,0,0,.6),
+        0 50px 140px rgba(0,0,0,.8),
+        inset 0 0 0 1px rgba(255,255,255,.05);
+}
+
+/* edge sheen */
 .feature::before{
     content:"";
     position:absolute;
     inset:-1px;
     border-radius:inherit;
-    background:linear-gradient(120deg,transparent,rgba(124,255,198,.25),transparent);
+    background:linear-gradient(
+        120deg,
+        transparent,
+        rgba(124,255,198,.25),
+        transparent
+    );
     opacity:0;
-    transition:.4s;
+    transition:.35s;
+    pointer-events:none;
 }
 
-.feature:hover::before{opacity:1}
+.feature:hover::before{
+    opacity:1;
+}
+
+/* mint glow plane */
+.feature::after{
+    content:"";
+    position:absolute;
+    inset:-40px;
+    border-radius:24px;
+    background:radial-gradient(
+        circle,
+        rgba(52,193,115,.38) 0%,
+        rgba(184,255,216,.20) 40%,
+        transparent 75%
+    );
+    filter:blur(40px);
+    opacity:0;
+    z-index:-1;
+    transition:opacity .35s ease, transform .35s ease;
+}
+
+.feature:hover::after{
+    opacity:1;
+    transform:scale(1.25) translateY(24px);
+}
+
+/* background depth effect */
+.features:hover .feature:not(:hover){
+    transform:scale(.97);
+    opacity:.7;
+}
 
 /* ---------------- SHOWCASE ---------------- */
+
+.showcase{
+    position:relative;
+}
+
+/* page dimmer */
+.showcase-dim{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.55);
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .35s ease;
+    z-index:5;
+}
+
+/* activated when hovering */
+.showcase-dim.active{
+    opacity:1;
+}
+
 .showcase-card{
     position:relative;
     margin-top:40px;
     border-radius:18px;
     transform-style:preserve-3d;
-    transition:transform .15s ease-out;
+    transition:
+        transform .25s cubic-bezier(.2,.8,.2,1),
+        filter .25s ease;
+    z-index:10;
 }
 
-/* mint glow behind image */
+/* mint glow (stronger + visible) */
 .showcase-card::before{
     content:"";
     position:absolute;
-    inset:-30px;
-    border-radius:22px;
+    inset:-60px;
+    border-radius:28px;
     background:radial-gradient(
         circle,
-        rgba(184,255,216,.35),
-        rgba(184,255,216,.12) 40%,
-        transparent 70%
+        rgba(52, 193, 115, 0.45) 30%,
+        rgba(184,255,216,.18) 35%,
+        transparent 100%
     );
-    filter:blur(35px);
-    opacity:.9;
+    filter:blur(45px);
+    opacity:.75;
     z-index:-1;
-    transition:opacity .25s ease;
+    transition:opacity .25s ease, transform .25s ease;
 }
 
 .showcase-card:hover::before{
     opacity:1;
+    transform:scale(1.1);
 }
 
 .showcase-card img{
     width:100%;
     display:block;
     border-radius:18px;
-    box-shadow:0 40px 120px rgba(0,0,0,.8);
-    transform:translateZ(40px);
+    box-shadow:0 40px 120px rgba(0,0,0,.85);
+    transform:translateZ(50px);
     pointer-events:none;
 }
+
+.carousel{
+    overflow:hidden;
+    border-radius:18px;
+}
+
+.carousel-track{
+    display:flex;
+    transition:transform .45s cubic-bezier(.2,.8,.2,1);
+}
+
+.slide{
+    min-width:100%;
+    flex-shrink:0;
+}
+
+.slide img,
+.slide video,
+.slide iframe{
+    width:100%;
+    display:block;
+    border-radius:18px;
+    box-shadow:0 40px 120px rgba(0,0,0,.85);
+}
+
+/* buttons */
+.carousel-btn{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    background:rgba(0,0,0,.5);
+    border:1px solid rgba(255,255,255,.2);
+    color:white;
+    font-size:28px;
+    padding:10px 16px;
+    border-radius:10px;
+    cursor:pointer;
+    z-index:20;
+}
+
+.carousel-btn.prev{ left:12px; }
+.carousel-btn.next{ right:12px; }
 
 /* ---------------- BUTTONS ---------------- */
 .btn{
@@ -250,10 +385,9 @@ footer{text-align:center;padding:70px 20px;border-top:1px solid rgba(255,255,255
 
 <svg class="wave" viewBox="0 0 1440 320"><path fill="#04050a" d="M0,96L80,112C160,128,320,160,480,170.7C640,181,800,171,960,144C1120,117,1280,75,1360,53.3L1440,32V320H0Z"></path></svg>
 
-<!-- EXPLORE MOVED UP -->
 <section>
 <h2>Explore</h2>
-<p>Limeko is basically a public notebook disguised as a game engine. You're welcome to look around.</p>
+<p>Ready to get Creating? Pick your platform, and Download! Or, you could check out the Source-Code & Documentation!</p>
 <a class="btn btn-primary" href="#">Download</a>
 <a class="btn btn-secondary" href="https://github.com/violetv0id/Limeko-Engine/tree/main">Source Code</a>
 <a class="btn btn-secondary" href="#">Documentation</a>
@@ -275,7 +409,7 @@ footer{text-align:center;padding:70px 20px;border-top:1px solid rgba(255,255,255
 <div class="feature">
 <h3>Physics</h3>
 <p>Fast, deterministic Rigidbody simulations wired directly into Entities.</p>
-<p2>Powered by Bepu Physics!</p2>
+<p2>(Powered by Bepu Physics!)</p2>
 </div>
 
 <div class="feature">
@@ -296,16 +430,30 @@ footer{text-align:center;padding:70px 20px;border-top:1px solid rgba(255,255,255
 <div class="feature">
 <h3>And more...</h3>
 <p>All in one Free, Open-Source program.</p>
+<a class="wowielink"
+   href="https://github.com/violetv0id/Limeko-Engine/blob/main/README.md"
+   target="_blank" rel="noopener">
+   Tell me more!
+</a>
 </div>
 
 </div>
 </section>
 
 <section class="showcase">
+<div class="showcase-dim"></div>
 <h2>In Motion</h2>
 <p>Here, you'll find images of the Engine doing it's job. For now, Have this silly image of a Monkey.</p>
+<p2>^_^</p2>
 <div class="showcase-card">
-    <img src="limeko_showcase.png" alt="engine showcase">
+
+    <div class="carousel">
+        <div id="carouselTrack" class="carousel-track"></div>
+    </div>
+
+    <button class="carousel-btn prev">‹</button>
+    <button class="carousel-btn next">›</button>
+
 </div>
 </section>
 
@@ -326,33 +474,119 @@ animate();
 
 <script>
 const cards = document.querySelectorAll(".showcase-card");
+const dimmer = document.querySelector(".showcase-dim");
 
 cards.forEach(card => {
 
+    card.addEventListener("mouseenter", () => {
+        dimmer.classList.add("active");
+    });
+
+    card.addEventListener("mouseleave", () => {
+        dimmer.classList.remove("active");
+
+        card.style.transform =
+            "perspective(900px) rotateX(0deg) rotateY(0deg) scale(1)";
+    });
+
     card.addEventListener("mousemove", e => {
+
         const rect = card.getBoundingClientRect();
 
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+        // normalized cursor position (0 → 1)
+        let px = (e.clientX - rect.left) / rect.width;
+        let py = (e.clientY - rect.top) / rect.height;
 
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
+        // clamp to prevent edge glitches
+        px = Math.max(0, Math.min(1, px));
+        py = Math.max(0, Math.min(1, py));
 
-        const rotateY = (x - centerX) / 18;
-        const rotateX = (centerY - y) / 18;
+        // softer tilt (about 2.5x weaker)
+        const rotateY = (px - 0.5) * 10;
+        const rotateX = (0.5 - py) * 10;
 
         card.style.transform =
             `perspective(900px)
              rotateX(${rotateX}deg)
              rotateY(${rotateY}deg)
-             scale(1.03)`;
-    });
-
-    card.addEventListener("mouseleave", () => {
-        card.style.transform =
-            "perspective(900px) rotateX(0deg) rotateY(0deg) scale(1)";
+             scale(1.06)`;
     });
 });
+</script>
+
+<script>
+const track = document.getElementById("carouselTrack");
+let index = 0;
+let slides = [];
+
+function extractYouTubeID(url){
+    const regExp = /(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&]+)/;
+    const match = url.match(regExp);
+    return match ? match[1] : null;
+}
+
+async function loadShowcase(){
+    const res = await fetch("showcase/showcase.json");
+    const data = await res.json();
+
+    data.items.forEach(item => {
+        const slide = document.createElement("div");
+        slide.className = "slide";
+
+        if(item.type === "image"){
+            const img = document.createElement("img");
+            img.src = item.src;
+            slide.appendChild(img);
+        }
+
+        if(item.type === "video"){
+            const vid = document.createElement("video");
+            vid.src = item.src;
+            vid.controls = true;
+            vid.preload = "metadata";
+            slide.appendChild(vid);
+        }
+
+        if(item.type === "youtube"){
+            const id = extractYouTubeID(item.src);
+            if(id){
+                const iframe = document.createElement("iframe");
+                iframe.src = `https://www.youtube.com/embed/${id}`;
+                iframe.allow =
+                    "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+                iframe.allowFullscreen = true;
+                iframe.style.width = "100%";
+                iframe.style.height = "100%";
+                iframe.style.aspectRatio = "16 / 9";
+                iframe.style.border = "none";
+                iframe.style.borderRadius = "18px";
+                slide.appendChild(iframe);
+            }
+        }
+
+        track.appendChild(slide);
+    });
+
+    slides = document.querySelectorAll(".slide");
+}
+
+function updateCarousel(){
+    track.style.transform = `translateX(-${index * 100}%)`;
+}
+
+document.querySelector(".next").onclick = () => {
+    if(!slides.length) return;
+    index = (index + 1) % slides.length;
+    updateCarousel();
+};
+
+document.querySelector(".prev").onclick = () => {
+    if(!slides.length) return;
+    index = (index - 1 + slides.length) % slides.length;
+    updateCarousel();
+};
+
+loadShowcase();
 </script>
 
 </body>
