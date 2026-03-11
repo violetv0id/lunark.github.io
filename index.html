@@ -8,11 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
     <style>
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
             --bg: #faf6f0;
@@ -49,14 +45,7 @@
             z-index: 0;
         }
 
-        .blob {
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.22;
-            pointer-events: none;
-            z-index: 0;
-        }
+        .blob { position: fixed; border-radius: 50%; filter: blur(80px); opacity: 0.22; pointer-events: none; z-index: 0; }
         .blob-1 { width: 520px; height: 520px; background: #e8b48a; top: -120px; right: -100px; }
         .blob-2 { width: 400px; height: 400px; background: #a8c8b0; bottom: 60px; left: -80px; }
         .blob-3 { width: 280px; height: 280px; background: #f0d0a0; top: 45%; left: 35%; }
@@ -77,7 +66,6 @@
             margin-bottom: 72px;
             animation: fadeUp 0.7s ease both;
         }
-
         .avatar-wrap { position: relative; flex-shrink: 0; }
         .avatar-ring {
             width: 116px; height: 116px;
@@ -86,15 +74,11 @@
             padding: 3px;
             box-shadow: 0 8px 32px var(--shadow);
         }
-        .avatar-ring img, .avatar-placeholder {
+        .avatar-ring img {
             width: 100%; height: 100%;
             border-radius: 50%;
             object-fit: cover;
             background: var(--bg2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 38px;
         }
         .status-dot {
             position: absolute; bottom: 6px; right: 6px;
@@ -103,14 +87,12 @@
             border-radius: 50%;
             border: 2.5px solid var(--bg);
         }
-
         .hero-text h1 {
             font-family: 'Lora', serif;
             font-size: clamp(2rem, 5vw, 2.8rem);
             font-weight: 600;
             letter-spacing: -0.02em;
             line-height: 1.1;
-            color: var(--text);
         }
         .hero-text h1 span { color: var(--accent); }
         .hero-text .tagline {
@@ -120,14 +102,12 @@
             line-height: 1.6;
             max-width: 480px;
         }
-
         .hero-links {
             display: flex;
             gap: 12px;
             margin-top: 20px;
             flex-wrap: wrap;
         }
-
         .pill-link {
             display: inline-flex;
             align-items: center;
@@ -138,7 +118,6 @@
             border: 1.5px solid var(--border);
             color: var(--text-soft);
             font-size: 0.875rem;
-            font-weight: 400;
             text-decoration: none;
             transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.15s;
             box-shadow: 0 2px 8px var(--shadow);
@@ -162,12 +141,7 @@
             align-items: center;
             gap: 12px;
         }
-        .section-label::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: var(--border);
-        }
+        .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
         /* ── about ── */
         .about {
@@ -196,7 +170,6 @@
             padding: 5px 14px;
             border-radius: 999px;
             font-size: 0.82rem;
-            font-weight: 400;
             border: 1.5px solid var(--border);
             background: var(--card);
             color: var(--text-soft);
@@ -205,185 +178,169 @@
         .chip.green { background: #eaf3ec; border-color: #b0cdb8; color: #2e6040; }
         .chip.muted { background: var(--bg2); }
 
-        /* ── ✦ ARTICLES FEATURE BANNER ── */
-        .articles-feature {
-            position: relative;
+        /* ── articles section ── */
+        .articles-section {
             margin-bottom: 56px;
             animation: fadeUp 0.7s 0.22s ease both;
         }
 
-        .articles-banner {
-            display: block;
-            text-decoration: none;
-            background: var(--card);
-            border: 1.5px solid var(--border);
-            border-radius: 22px;
-            padding: 32px 36px;
-            box-shadow: 0 4px 24px var(--shadow);
-            overflow: hidden;
-            position: relative;
-            transition: transform 0.22s, box-shadow 0.22s, border-color 0.22s;
-        }
-
-        /* animated gradient bar across top */
-        .articles-banner::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent2), var(--accent3), var(--accent2));
-            background-size: 200% 100%;
-            animation: shimmer 3s linear infinite;
-            border-radius: 22px 22px 0 0;
-        }
-
-        /* subtle warm glow in corner */
-        .articles-banner::after {
-            content: '';
-            position: absolute;
-            top: -60px; right: -60px;
-            width: 220px; height: 220px;
-            background: radial-gradient(circle, rgba(232,169,126,0.18) 0%, transparent 70%);
-            pointer-events: none;
-            transition: opacity 0.3s;
-        }
-
-        .articles-banner:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 14px 48px var(--shadow);
-            border-color: var(--accent2);
-        }
-
-        .articles-banner:hover::after {
-            opacity: 1.5;
-        }
-
-        .articles-banner-inner {
+        /* header row with inline "view all" */
+        .section-label-row {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            gap: 24px;
-            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
         }
-
-        .articles-banner-left {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .articles-icon {
-            width: 52px; height: 52px;
-            border-radius: 14px;
-            background: linear-gradient(135deg, #fdf0e4, #f5dcc4);
-            border: 1.5px solid #e8c4a0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            font-size: 22px;
-            box-shadow: 0 2px 10px rgba(196,112,58,0.12);
-        }
-
-        .articles-copy {}
-
-        .articles-eyebrow {
-            font-size: 0.72rem;
-            font-weight: 500;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 4px;
-        }
-
-        .articles-title {
+        .section-label-row .label-text {
             font-family: 'Lora', serif;
             font-size: 1.25rem;
             font-weight: 600;
             color: var(--text);
-            line-height: 1.2;
-        }
-
-        .articles-subtitle {
-            margin-top: 5px;
-            font-size: 0.9rem;
-            color: var(--text-soft);
-            line-height: 1.5;
-        }
-
-        .articles-cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 22px;
-            border-radius: 999px;
-            background: var(--accent);
-            color: #fff;
-            font-size: 0.88rem;
-            font-weight: 400;
             white-space: nowrap;
-            box-shadow: 0 3px 14px rgba(196,112,58,0.30);
-            transition: background 0.18s, transform 0.15s, gap 0.15s;
-            flex-shrink: 0;
         }
-
-        .articles-banner:hover .articles-cta {
-            background: #b05e2e;
-            transform: translateY(-1px);
-            gap: 11px;
+        .section-label-row .divider {
+            flex: 1;
+            height: 1px;
+            background: var(--border);
         }
-
-        /* latest article preview pills */
-        .articles-preview {
-            display: flex;
-            gap: 8px;
-            margin-top: 18px;
-            flex-wrap: wrap;
-        }
-
-        .preview-pill {
+        .view-all-btn {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            padding: 4px 12px;
+            padding: 5px 14px;
             border-radius: 999px;
-            background: var(--bg2);
+            background: var(--card);
+            border: 1.5px solid var(--border);
+            color: var(--text-soft);
+            font-size: 0.8rem;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: background 0.18s, border-color 0.18s, color 0.18s, transform 0.15s;
+            box-shadow: 0 2px 6px var(--shadow);
+        }
+        .view-all-btn:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+        .view-all-btn svg { flex-shrink: 0; transition: transform 0.15s; }
+        .view-all-btn:hover svg { transform: translateX(2px); }
+
+        /* cards grid */
+        .article-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 14px;
+        }
+
+        .article-card {
+            background: var(--card);
+            border: 1.5px solid var(--border);
+            border-radius: 16px;
+            padding: 20px 22px;
+            box-shadow: 0 3px 16px var(--shadow);
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+        }
+        .article-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent2), var(--accent3));
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .article-card:hover { transform: translateY(-3px); box-shadow: 0 10px 32px var(--shadow); border-color: var(--accent2); }
+        .article-card:hover::before { opacity: 1; }
+
+        .article-card-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .article-card-date { font-size: 0.75rem; color: var(--text-soft); }
+        .article-card-tag {
+            font-size: 0.72rem;
+            padding: 2px 9px;
+            border-radius: 999px;
             border: 1px solid var(--border);
-            font-size: 0.78rem;
+            background: var(--bg2);
             color: var(--text-soft);
         }
+        .article-card-tag.rendering { background: #fdf0e4; border-color: #e8c4a0; color: #8a4a20; }
+        .article-card-tag.graphics  { background: #fdf0e4; border-color: #e8c4a0; color: #8a4a20; }
+        .article-card-tag.engine    { background: #eaf3ec; border-color: #b0cdb8; color: #2e6040; }
+        .article-card-tag.systems   { background: #eef2fb; border-color: #b8c8e8; color: #304070; }
 
-        .preview-pill-dot {
-            width: 6px; height: 6px;
-            border-radius: 50%;
-            background: var(--accent2);
-            flex-shrink: 0;
+        .article-card-title {
+            font-family: 'Lora', serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text);
+            line-height: 1.3;
+            transition: color 0.18s;
+        }
+        .article-card:hover .article-card-title { color: var(--accent); }
+
+        .article-card-excerpt {
+            font-size: 0.875rem;
+            color: var(--text-soft);
+            line-height: 1.6;
+            flex: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
-        @keyframes shimmer {
-            0%   { background-position: 0% 0%; }
-            100% { background-position: 200% 0%; }
+        .article-card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 4px;
         }
-
-        /* ── pulse animation on the eyebrow ── */
-        .articles-eyebrow::before {
-            content: '● ';
-            font-size: 0.6rem;
-            animation: pulse 2s ease-in-out infinite;
+        .article-card-readtime { font-size: 0.75rem; color: var(--text-soft); }
+        .article-card-arrow {
+            font-size: 0.78rem;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: gap 0.15s;
         }
+        .article-card:hover .article-card-arrow { gap: 7px; }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50%       { opacity: 0.3; }
+        /* skeleton loader */
+        .article-skeleton {
+            background: var(--card);
+            border: 1.5px solid var(--border);
+            border-radius: 16px;
+            padding: 20px 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .skel-line {
+            border-radius: 6px;
+            background: linear-gradient(90deg, var(--bg2) 25%, var(--bg3) 50%, var(--bg2) 75%);
+            background-size: 200% 100%;
+            animation: skelShimmer 1.4s ease infinite;
+        }
+        @keyframes skelShimmer {
+            0%   { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
         }
 
         /* ── projects ── */
         .projects {
             display: grid;
             gap: 20px;
-            animation: fadeUp 0.7s 0.25s ease both;
+            animation: fadeUp 0.7s 0.28s ease both;
         }
-
         .project-card {
             background: var(--card);
             border: 1.5px solid var(--border);
@@ -402,101 +359,40 @@
             background: linear-gradient(180deg, var(--accent2), var(--accent3));
             border-radius: 4px 0 0 4px;
         }
-        .project-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px var(--shadow);
-        }
-
-        .project-header {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-        .project-name {
-            font-family: 'Lora', serif;
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: var(--text);
-        }
+        .project-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px var(--shadow); }
+        .project-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+        .project-name { font-family: 'Lora', serif; font-size: 1.3rem; font-weight: 600; color: var(--text); }
         .project-badge {
-            font-size: 0.75rem;
-            padding: 3px 10px;
-            border-radius: 999px;
-            background: #eaf3ec;
-            border: 1px solid #b0cdb8;
-            color: #2e6040;
-            white-space: nowrap;
-            margin-top: 3px;
+            font-size: 0.75rem; padding: 3px 10px; border-radius: 999px;
+            background: #eaf3ec; border: 1px solid #b0cdb8; color: #2e6040;
+            white-space: nowrap; margin-top: 3px;
         }
-        .project-desc {
-            margin-top: 10px;
-            color: var(--text-soft);
-            font-size: 0.95rem;
-            line-height: 1.7;
-        }
-        .project-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 7px;
-            margin-top: 16px;
-        }
+        .project-desc { margin-top: 10px; color: var(--text-soft); font-size: 0.95rem; line-height: 1.7; }
+        .project-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 16px; }
         .project-tag {
-            font-size: 0.78rem;
-            padding: 3px 11px;
-            border-radius: 999px;
-            background: var(--bg2);
-            border: 1px solid var(--border);
-            color: var(--text-soft);
+            font-size: 0.78rem; padding: 3px 11px; border-radius: 999px;
+            background: var(--bg2); border: 1px solid var(--border); color: var(--text-soft);
         }
-        .project-links {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
+        .project-links { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
         .proj-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 8px 18px;
-            border-radius: 999px;
-            font-size: 0.85rem;
-            font-weight: 400;
-            text-decoration: none;
-            transition: all 0.18s;
-            cursor: pointer;
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 8px 18px; border-radius: 999px;
+            font-size: 0.85rem; text-decoration: none;
+            transition: all 0.18s; cursor: pointer;
         }
         .proj-btn.primary {
-            background: var(--accent);
-            color: #fff;
+            background: var(--accent); color: #fff;
             border: 1.5px solid var(--accent);
             box-shadow: 0 2px 10px rgba(196,112,58,0.25);
         }
-        .proj-btn.primary:hover {
-            background: #b05e2e;
-            border-color: #b05e2e;
-            transform: translateY(-1px);
-        }
-        .proj-btn.ghost {
-            background: transparent;
-            color: var(--text-soft);
-            border: 1.5px solid var(--border);
-        }
-        .proj-btn.ghost:hover {
-            background: var(--bg2);
-            color: var(--text);
-            transform: translateY(-1px);
-        }
+        .proj-btn.primary:hover { background: #b05e2e; border-color: #b05e2e; transform: translateY(-1px); }
+        .proj-btn.ghost { background: transparent; color: var(--text-soft); border: 1.5px solid var(--border); }
+        .proj-btn.ghost:hover { background: var(--bg2); color: var(--text); transform: translateY(-1px); }
 
         footer {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-            padding: 32px;
-            color: var(--text-soft);
-            font-size: 0.82rem;
+            position: relative; z-index: 1;
+            text-align: center; padding: 32px;
+            color: var(--text-soft); font-size: 0.82rem;
             border-top: 1px solid var(--border);
         }
 
@@ -505,12 +401,10 @@
             to   { opacity: 1; transform: translateY(0); }
         }
 
-        @media (max-width: 640px) {
+        @media (max-width: 560px) {
             .hero { flex-direction: column; align-items: flex-start; gap: 24px; }
             main { padding: 48px 20px 80px; }
-            .articles-banner { padding: 24px 22px; }
-            .articles-banner-inner { flex-direction: column; align-items: flex-start; }
-            .articles-cta { width: 100%; justify-content: center; }
+            .article-cards { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -530,7 +424,6 @@
                 </div>
                 <div class="status-dot"></div>
             </div>
-
             <div class="hero-text">
                 <h1>hey, i'm <span>lunark</span> ✦</h1>
                 <p class="tagline">
@@ -539,11 +432,11 @@
                 </p>
                 <div class="hero-links">
                     <a href="https://github.com/violetv0id" class="pill-link" target="_blank" rel="noopener">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" /></svg>
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
                         GitHub
                     </a>
                     <a href="https://discord.gg/SW9jG7PtJf" class="pill-link" target="_blank" rel="noopener">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z" /></svg>
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
                         Discord
                     </a>
                 </div>
@@ -579,29 +472,31 @@
             <span class="chip muted">Real-time Graphics</span>
         </div>
 
-        <!-- ── ARTICLES FEATURE ── -->
-        <div class="section-label">articles</div>
-        <div class="articles-feature">
-            <a href="https://violetv0id.github.io/lunark.github.io/articles.html" class="articles-banner">
-                <div class="articles-banner-inner">
-                    <div class="articles-banner-left">
-                        <div class="articles-icon">✦</div>
-                        <div class="articles-copy">
-                            <div class="articles-eyebrow">write-ups & deep dives</div>
-                            <div class="articles-title">things i've built, broken & figured out</div>
-                            <div class="articles-subtitle">graphics techniques, engine internals, experiments, and the occasional rabbit hole.</div>
-                        </div>
-                    </div>
-                    <span class="articles-cta">
-                        read articles
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="9 18 15 12 9 6"/></svg>
-                    </span>
+        <!-- ── ARTICLES ── -->
+        <div class="articles-section">
+            <div class="section-label-row">
+                <span class="label-text">articles</span>
+                <div class="divider"></div>
+                <a href="articles.html" class="view-all-btn">
+                    view all
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+            </div>
+            <!-- dynamically populated by JS below -->
+            <div class="article-cards" id="article-cards">
+                <div class="article-skeleton">
+                    <div class="skel-line" style="height:11px; width:55%;"></div>
+                    <div class="skel-line" style="height:17px; width:80%;"></div>
+                    <div class="skel-line" style="height:11px; width:100%;"></div>
+                    <div class="skel-line" style="height:11px; width:70%;"></div>
                 </div>
-                <div class="articles-preview">
-                    <span class="preview-pill"><span class="preview-pill-dot"></span>Networking Basics — march 2026</span>
-                    <span class="preview-pill">more coming soon ✦</span>
+                <div class="article-skeleton">
+                    <div class="skel-line" style="height:11px; width:45%;"></div>
+                    <div class="skel-line" style="height:17px; width:90%;"></div>
+                    <div class="skel-line" style="height:11px; width:100%;"></div>
+                    <div class="skel-line" style="height:11px; width:60%;"></div>
                 </div>
-            </a>
+            </div>
         </div>
 
         <!-- ── PROJECTS ── -->
@@ -627,11 +522,11 @@
                 </div>
                 <div class="project-links">
                     <a href="https://violetv0id.github.io/lunark.github.io/limeko.html" class="proj-btn primary" target="_blank" rel="noopener">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                         Official Site
                     </a>
                     <a href="https://github.com/violetv0id/Limeko-Engine/tree/v2" class="proj-btn ghost" target="_blank" rel="noopener">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" /></svg>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
                         Source Code
                     </a>
                 </div>
@@ -648,9 +543,51 @@
 
     </main>
 
-    <footer>
-        ✦<strong>lunark</strong>✦
-    </footer>
+    <footer>✦<strong>lunark</strong>✦</footer>
+
+    <script>
+        const TAG_CLASSES = { rendering: 'rendering', graphics: 'graphics', engine: 'engine', systems: 'systems' };
+
+        async function loadArticles() {
+            const container = document.getElementById('article-cards');
+            try {
+                const res = await fetch('articles/manifest.json');
+                if (!res.ok) throw new Error();
+                const articles = await res.json();
+
+                container.innerHTML = '';
+
+                if (!articles.length) {
+                    container.innerHTML = `<p style="color:var(--text-soft);font-size:.9rem;grid-column:1/-1;">nothing published yet — check back soon ✦</p>`;
+                    return;
+                }
+
+                articles.forEach(a => {
+                    const tags = (a.tags || []).map(t => `<span class="article-card-tag ${TAG_CLASSES[t]||''}">${t}</span>`).join('');
+                    const card = document.createElement('a');
+                    card.href = `articles/${a.slug}.html`;
+                    card.className = 'article-card';
+                    card.innerHTML = `
+                        <div class="article-card-meta">
+                            <span class="article-card-date">${a.date}</span>
+                            ${tags}
+                        </div>
+                        <div class="article-card-title">${a.title}</div>
+                        <p class="article-card-excerpt">${a.excerpt}</p>
+                        <div class="article-card-footer">
+                            <span class="article-card-readtime">${a.readTime}</span>
+                            <span class="article-card-arrow">read <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></span>
+                        </div>`;
+                    container.appendChild(card);
+                });
+
+            } catch {
+                container.innerHTML = `<p style="color:var(--text-soft);font-size:.9rem;grid-column:1/-1;">couldn't load articles — <a href="articles.html" style="color:var(--accent);">view the full list ✦</a></p>`;
+            }
+        }
+
+        loadArticles();
+    </script>
 
 </body>
 </html>
