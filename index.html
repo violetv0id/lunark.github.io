@@ -1,214 +1,555 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lunark</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lunark — portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-<style>
+        :root {
+            --bg: #faf6f0;
+            --bg2: #f2ebe0;
+            --bg3: #ebe1d2;
+            --text: #2e2218;
+            --text-soft: #7a6651;
+            --accent: #c4703a;
+            --accent2: #e8a97e;
+            --accent3: #8fb89a;
+            --border: #ddd0be;
+            --card: #fffcf7;
+            --shadow: rgba(100, 60, 20, 0.10);
+        }
 
-/* ---------------- RESET ---------------- */
+        html {
+            scroll-behavior: smooth;
+        }
 
-* {
-    box-sizing: border-box;
-}
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 300;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
 
-body {
-    margin: 0;
-    font-family: Consolas, "Segoe UI", monospace;
-    background: #0e0f17;
-    color: #e6e6ff;
-    line-height: 1.6;
-}
+            /* ── noise texture overlay ── */
+            body::before {
+                content: '';
+                position: fixed;
+                inset: 0;
+                background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+                background-size: 180px;
+                pointer-events: none;
+                z-index: 0;
+            }
 
-/* ---------------- LAYOUT ---------------- */
+        /* ── blobs ── */
+        .blob {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.22;
+            pointer-events: none;
+            z-index: 0;
+        }
 
-.wrapper {
-    max-width: 900px;
-    margin: auto;
-    padding: 60px 20px;
-}
+        .blob-1 {
+            width: 520px;
+            height: 520px;
+            background: #e8b48a;
+            top: -120px;
+            right: -100px;
+        }
 
-section {
-    margin-bottom: 80px;
-}
+        .blob-2 {
+            width: 400px;
+            height: 400px;
+            background: #a8c8b0;
+            bottom: 60px;
+            left: -80px;
+        }
 
-/* ---------------- TYPOGRAPHY ---------------- */
+        .blob-3 {
+            width: 280px;
+            height: 280px;
+            background: #f0d0a0;
+            top: 45%;
+            left: 35%;
+        }
 
-h1 {
-    font-size: clamp(2.5rem, 6vw, 4rem);
-    margin: 0 0 10px;
-}
+        /* ── layout ── */
+        main {
+            position: relative;
+            z-index: 1;
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 80px 32px 120px;
+        }
 
-h2 {
-    margin-bottom: 10px;
-    color: #a8b3ff;
-}
+        /* ── hero ── */
+        .hero {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 72px;
+            animation: fadeUp 0.7s ease both;
+        }
 
-.small {
-    opacity: 0.7;
-}
+        .avatar-wrap {
+            position: relative;
+            flex-shrink: 0;
+        }
 
-a {
-    color: #9cffc7;
-    text-decoration: none;
-}
+        .avatar-ring {
+            width: 116px;
+            height: 116px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent2), var(--accent3));
+            padding: 3px;
+            box-shadow: 0 8px 32px var(--shadow);
+        }
 
-a:hover {
-    text-decoration: underline;
-}
+            .avatar-ring img,
+            .avatar-placeholder {
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                object-fit: cover;
+                background: var(--bg2);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 38px;
+            }
 
-/* ---------------- HERO ---------------- */
+        .status-dot {
+            position: absolute;
+            bottom: 6px;
+            right: 6px;
+            width: 14px;
+            height: 14px;
+            background: var(--accent3);
+            border-radius: 50%;
+            border: 2.5px solid var(--bg);
+        }
 
-.intro {
-    display: flex;
-    gap: 30px;
-    flex-wrap: wrap;
-    align-items: center;
-}
+        .hero-text h1 {
+            font-family: 'Lora', serif;
+            font-size: clamp(2rem, 5vw, 2.8rem);
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            color: var(--text);
+        }
 
-.intro img {
-    width: 180px;
-    border-radius: 12px;
-    border: 2px solid #2b2f55;
-}
+            .hero-text h1 span {
+                color: var(--accent);
+            }
 
-.tagline {
-    color: #ffd6ff;
-}
+        .hero-text .tagline {
+            margin-top: 10px;
+            font-size: 1.05rem;
+            color: var(--text-soft);
+            line-height: 1.6;
+            max-width: 480px;
+        }
 
-/* ---------------- LIST ENERGY ---------------- */
+        .hero-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
 
-ul {
-    padding-left: 20px;
-}
+        .pill-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 7px 16px;
+            border-radius: 999px;
+            background: var(--card);
+            border: 1.5px solid var(--border);
+            color: var(--text-soft);
+            font-size: 0.875rem;
+            font-weight: 400;
+            text-decoration: none;
+            transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.15s;
+            box-shadow: 0 2px 8px var(--shadow);
+        }
 
-li {
-    margin: 6px 0;
-}
+            .pill-link:hover {
+                background: var(--accent);
+                border-color: var(--accent);
+                color: #fff;
+                transform: translateY(-2px);
+            }
 
-/* ---------------- PROJECTS ---------------- */
+            .pill-link svg {
+                flex-shrink: 0;
+            }
 
-.project {
-    margin-top: 30px;
-    padding-left: 14px;
-    border-left: 3px solid #2b2f55;
-}
+        /* ── section headers ── */
+        .section-label {
+            font-family: 'Lora', serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
 
-.project img {
-    width: 100%;
-    max-width: 520px;
-    margin: 12px 0;
-    border-radius: 10px;
-}
+            .section-label::after {
+                content: '';
+                flex: 1;
+                height: 1px;
+                background: var(--border);
+            }
 
-/* ---------------- BUTTONS ---------------- */
+        /* ── about strip ── */
+        .about {
+            background: var(--card);
+            border: 1.5px solid var(--border);
+            border-radius: 18px;
+            padding: 28px 32px;
+            margin-bottom: 56px;
+            box-shadow: 0 4px 20px var(--shadow);
+            animation: fadeUp 0.7s 0.1s ease both;
+            line-height: 1.75;
+            color: var(--text-soft);
+            font-size: 0.97rem;
+        }
 
-.button {
-    display: inline-block;
-    margin-right: 12px;
-    margin-top: 10px;
-    padding: 6px 12px;
-    border: 1px solid #3a3f77;
-    border-radius: 6px;
-    background: #171a2b;
-}
+            .about strong {
+                color: var(--text);
+                font-weight: 500;
+            }
 
-.button:hover {
-    background: #20244a;
-}
+        /* ── skills chips ── */
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 56px;
+            animation: fadeUp 0.7s 0.2s ease both;
+        }
 
-</style>
+        .chip {
+            padding: 5px 14px;
+            border-radius: 999px;
+            font-size: 0.82rem;
+            font-weight: 400;
+            border: 1.5px solid var(--border);
+            background: var(--card);
+            color: var(--text-soft);
+        }
+
+            .chip.warm {
+                background: #fdf0e4;
+                border-color: #e8c4a0;
+                color: #8a4a20;
+            }
+
+            .chip.green {
+                background: #eaf3ec;
+                border-color: #b0cdb8;
+                color: #2e6040;
+            }
+
+            .chip.muted {
+                background: var(--bg2);
+            }
+
+        /* ── projects ── */
+        .projects {
+            display: grid;
+            gap: 20px;
+            animation: fadeUp 0.7s 0.25s ease both;
+        }
+
+        .project-card {
+            background: var(--card);
+            border: 1.5px solid var(--border);
+            border-radius: 20px;
+            padding: 28px 30px;
+            box-shadow: 0 4px 24px var(--shadow);
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .project-card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 4px;
+                height: 100%;
+                background: linear-gradient(180deg, var(--accent2), var(--accent3));
+                border-radius: 4px 0 0 4px;
+            }
+
+            .project-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 12px 40px var(--shadow);
+            }
+
+        .project-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .project-name {
+            font-family: 'Lora', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .project-badge {
+            font-size: 0.75rem;
+            padding: 3px 10px;
+            border-radius: 999px;
+            background: #eaf3ec;
+            border: 1px solid #b0cdb8;
+            color: #2e6040;
+            white-space: nowrap;
+            margin-top: 3px;
+        }
+
+        .project-desc {
+            margin-top: 10px;
+            color: var(--text-soft);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            margin-top: 16px;
+        }
+
+        .project-tag {
+            font-size: 0.78rem;
+            padding: 3px 11px;
+            border-radius: 999px;
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            color: var(--text-soft);
+        }
+
+        .project-links {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .proj-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 18px;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 400;
+            text-decoration: none;
+            transition: all 0.18s;
+            cursor: pointer;
+        }
+
+            .proj-btn.primary {
+                background: var(--accent);
+                color: #fff;
+                border: 1.5px solid var(--accent);
+                box-shadow: 0 2px 10px rgba(196,112,58,0.25);
+            }
+
+                .proj-btn.primary:hover {
+                    background: #b05e2e;
+                    border-color: #b05e2e;
+                    transform: translateY(-1px);
+                }
+
+            .proj-btn.ghost {
+                background: transparent;
+                color: var(--text-soft);
+                border: 1.5px solid var(--border);
+            }
+
+                .proj-btn.ghost:hover {
+                    background: var(--bg2);
+                    color: var(--text);
+                    transform: translateY(-1px);
+                }
+
+        /* ── footer ── */
+        footer {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 32px;
+            color: var(--text-soft);
+            font-size: 0.82rem;
+            border-top: 1px solid var(--border);
+        }
+
+        /* ── animations ── */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(22px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ── responsive ── */
+        @media (max-width: 560px) {
+            .hero {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 24px;
+            }
+
+            main {
+                padding: 48px 20px 80px;
+            }
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="wrapper">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
 
-<!-- HERO -->
-<section>
-<div class="intro">
+    <main>
 
-<div>
-<h1>Lunark</h1>
+        <!-- ── HERO ── -->
+        <section class="hero">
+            <div class="avatar-wrap">
+                <div class="avatar-ring">
+                    <img src="profile.png" alt="lunark" />
+                </div>
+                <div class="status-dot"></div>
+            </div>
 
-<p class="tagline">
-c# dev · evil tinkerer · professional destroyer of completely functional code
-</p>
+            <div class="hero-text">
+                <h1>hey, i'm <span>lunark</span> ✦</h1>
+                <p class="tagline">
+                    software engineer & game dev. i build engines, tools, and things that run fast and feel good.
+                    open source enthusiast ♡
+                </p>
+                <div class="hero-links">
+                    <a href="https://github.com/violetv0id" class="pill-link" target="_blank" rel="noopener">
+                        <!-- GitHub icon -->
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" /></svg>
+                        GitHub
+                    </a>
+                    <a href="https://discord.gg/SW9jG7PtJf" class="pill-link" target="_blank" rel="noopener">
+                        <!-- Discord icon -->
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z" /></svg>
+                        Discord
+                    </a>
+                </div>
+            </div>
+        </section>
 
-<p>
-hi. i make weird software and stuff.
-</p>
+        <!-- ── ABOUT ── -->
+        <div class="section-label">about me</div>
+        <div class="about">
+            i'm a <strong>software engineer</strong> with a weak spot for low-level systems and game development.
+            i've been building with <strong>Unity & C#</strong> for about five years, and have spent the last few years
+            diving deep into <strong>backend systems, game networking, and developer tooling</strong>.
+            <br><br>
+            right now i'm pouring most of my energy into <strong>Limeko</strong> - my own open-source game engine -
+            because i believe devs deserve tools built with love.
+            when i'm not writing engine code, i'm probably asleep. ✦
+        </div>
 
-<p>
-i like learning how things actually work under the hood;
-rendering, physics, networking, UI, all the scary parts.
-currently, that obsession is called <b>Limeko</b>.
-</p>
+        <!-- ── SKILLS ── -->
+        <div class="section-label">skills & tools</div>
+        <div class="chips" style="margin-bottom: 56px;">
+            <span class="chip warm">C#</span>
+            <span class="chip warm">Unity Engine</span>
+            <span class="chip warm">OpenGL</span>
+            <span class="chip warm">Vulkan</span>
+            <span class="chip warm">GLSL</span>
+            <span class="chip green">Game Networking</span>
+            <span class="chip green">Backend Dev</span>
+            <span class="chip green">Game Systems</span>
+            <span class="chip green">Rendering Pipelines</span>
+            <span class="chip muted">Developer Tooling</span>
+            <span class="chip muted">Open Source</span>
+            <span class="chip muted">Real-time Graphics</span>
+        </div>
 
-<p class="small">
-warning: meow
-</p>
+        <!-- -- PROJECTS -- -->
+        <div class="section-label">projects</div>
+        <div class="projects">
 
-</div>
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-name">Limeko</div>
+                    <span class="project-badge">open source</span>
+                </div>
+                <p class="project-desc">
+                    a free, open-source game engine built from the ground up with flexibility in mind.
+                    real-time and baked lighting, a donation-optional model, and fast enough to run on a laptop.
+                    designed to give developers a modern, flexible program to build with.
+                </p>
+                <div class="project-tags">
+                    <span class="project-tag">C#</span>
+                    <span class="project-tag">Vulkan</span>
+                    <span class="project-tag">OpenGL</span>
+                    <span class="project-tag">Game Engine</span>
+                    <span class="project-tag">Rendering</span>
+                </div>
+                <div class="project-links">
+                    <a href="https://violetv0id.github.io/lunark.github.io/limeko.html" class="proj-btn primary" target="_blank" rel="noopener">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg>
+                        Official Site
+                    </a>
+                    <a href="https://github.com/violetv0id/Limeko-Engine/tree/v2" class="proj-btn ghost" target="_blank" rel="noopener">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" /></svg>
+                        Source Code
+                    </a>
+                </div>
+            </div>
 
-<img src="profile.png" alt="profile">
+            <div class="project-card" style="opacity: 0.55; pointer-events: none;">
+                <div class="project-header">
+                    <div class="project-name">more projects coming soon ✦</div>
+                </div>
+                <p class="project-desc">stay tuned — there's always something in the works.</p>
+            </div>
 
-</div>
-</section>
+        </div>
 
+    </main>
 
-<!-- ABOUT -->
-<section>
-<h2>about me</h2>
-
-<ul>
-<li>≈ 5 years of C# and counting</li>
-<li>way too many rendering experiments</li>
-<li>physics engines are my comfort zone</li>
-<li>i start side projects faster than i finish them</li>
-<li>debugging is a lifestyle, and making code that compiles is optional.</li>
-</ul>
-
-</section>
-
-
-<!-- PROJECTS -->
-<section>
-<h2>projects</h2>
-<p class="small">stuff i've built instead of sleeping</p>
-
-<div class="project">
-<h3>Limeko Engine</h3>
-
-<img src="limeko_logo.png">
-
-<p>
-a custom C# game engine with OpenGL rendering and Bepu physics.
-made to take everything good about other engines, and turn it into one free, open-source program.
-</p>
-
-<a class="button" href="limeko.html">website</a>
-<a class="button" href="https://github.com/violetv0id/Limeko-Engine/tree/main">source code</a>
-</div>
-
-
-<div class="project">
-<h3>Rainbound</h3>
-
-<img src="rainbound.png">
-
-<p>
-a cancelled survival-horror minecraft project about memory,
-avoidance, and emotional storytelling.
-</p>
-
-<a class="button" href="#">view project</a>
-</div>
-
-</section>
-
-</div>
+    <footer>
+        crafted with care by <strong>lunark</strong> · replace placeholder links before publishing ✦
+    </footer>
 
 </body>
 </html>
