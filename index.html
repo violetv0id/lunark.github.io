@@ -28,9 +28,7 @@
             --shadow: rgba(100, 60, 20, 0.10);
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
 
         body {
             background: var(--bg);
@@ -41,18 +39,16 @@
             overflow-x: hidden;
         }
 
-            /* ── noise texture overlay ── */
-            body::before {
-                content: '';
-                position: fixed;
-                inset: 0;
-                background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-                background-size: 180px;
-                pointer-events: none;
-                z-index: 0;
-            }
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+            background-size: 180px;
+            pointer-events: none;
+            z-index: 0;
+        }
 
-        /* ── blobs ── */
         .blob {
             position: fixed;
             border-radius: 50%;
@@ -61,32 +57,10 @@
             pointer-events: none;
             z-index: 0;
         }
+        .blob-1 { width: 520px; height: 520px; background: #e8b48a; top: -120px; right: -100px; }
+        .blob-2 { width: 400px; height: 400px; background: #a8c8b0; bottom: 60px; left: -80px; }
+        .blob-3 { width: 280px; height: 280px; background: #f0d0a0; top: 45%; left: 35%; }
 
-        .blob-1 {
-            width: 520px;
-            height: 520px;
-            background: #e8b48a;
-            top: -120px;
-            right: -100px;
-        }
-
-        .blob-2 {
-            width: 400px;
-            height: 400px;
-            background: #a8c8b0;
-            bottom: 60px;
-            left: -80px;
-        }
-
-        .blob-3 {
-            width: 280px;
-            height: 280px;
-            background: #f0d0a0;
-            top: 45%;
-            left: 35%;
-        }
-
-        /* ── layout ── */
         main {
             position: relative;
             z-index: 1;
@@ -104,39 +78,27 @@
             animation: fadeUp 0.7s ease both;
         }
 
-        .avatar-wrap {
-            position: relative;
-            flex-shrink: 0;
-        }
-
+        .avatar-wrap { position: relative; flex-shrink: 0; }
         .avatar-ring {
-            width: 116px;
-            height: 116px;
+            width: 116px; height: 116px;
             border-radius: 50%;
             background: linear-gradient(135deg, var(--accent2), var(--accent3));
             padding: 3px;
             box-shadow: 0 8px 32px var(--shadow);
         }
-
-            .avatar-ring img,
-            .avatar-placeholder {
-                width: 100%;
-                height: 100%;
-                border-radius: 50%;
-                object-fit: cover;
-                background: var(--bg2);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 38px;
-            }
-
+        .avatar-ring img, .avatar-placeholder {
+            width: 100%; height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            background: var(--bg2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 38px;
+        }
         .status-dot {
-            position: absolute;
-            bottom: 6px;
-            right: 6px;
-            width: 14px;
-            height: 14px;
+            position: absolute; bottom: 6px; right: 6px;
+            width: 14px; height: 14px;
             background: var(--accent3);
             border-radius: 50%;
             border: 2.5px solid var(--bg);
@@ -150,11 +112,7 @@
             line-height: 1.1;
             color: var(--text);
         }
-
-            .hero-text h1 span {
-                color: var(--accent);
-            }
-
+        .hero-text h1 span { color: var(--accent); }
         .hero-text .tagline {
             margin-top: 10px;
             font-size: 1.05rem;
@@ -185,17 +143,13 @@
             transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.15s;
             box-shadow: 0 2px 8px var(--shadow);
         }
-
-            .pill-link:hover {
-                background: var(--accent);
-                border-color: var(--accent);
-                color: #fff;
-                transform: translateY(-2px);
-            }
-
-            .pill-link svg {
-                flex-shrink: 0;
-            }
+        .pill-link:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+        .pill-link svg { flex-shrink: 0; }
 
         /* ── section headers ── */
         .section-label {
@@ -208,15 +162,14 @@
             align-items: center;
             gap: 12px;
         }
+        .section-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
 
-            .section-label::after {
-                content: '';
-                flex: 1;
-                height: 1px;
-                background: var(--border);
-            }
-
-        /* ── about strip ── */
+        /* ── about ── */
         .about {
             background: var(--card);
             border: 1.5px solid var(--border);
@@ -229,13 +182,9 @@
             color: var(--text-soft);
             font-size: 0.97rem;
         }
+        .about strong { color: var(--text); font-weight: 500; }
 
-            .about strong {
-                color: var(--text);
-                font-weight: 500;
-            }
-
-        /* ── skills chips ── */
+        /* ── skills ── */
         .chips {
             display: flex;
             flex-wrap: wrap;
@@ -243,7 +192,6 @@
             margin-bottom: 56px;
             animation: fadeUp 0.7s 0.2s ease both;
         }
-
         .chip {
             padding: 5px 14px;
             border-radius: 999px;
@@ -253,22 +201,181 @@
             background: var(--card);
             color: var(--text-soft);
         }
+        .chip.warm { background: #fdf0e4; border-color: #e8c4a0; color: #8a4a20; }
+        .chip.green { background: #eaf3ec; border-color: #b0cdb8; color: #2e6040; }
+        .chip.muted { background: var(--bg2); }
 
-            .chip.warm {
-                background: #fdf0e4;
-                border-color: #e8c4a0;
-                color: #8a4a20;
-            }
+        /* ── ✦ ARTICLES FEATURE BANNER ── */
+        .articles-feature {
+            position: relative;
+            margin-bottom: 56px;
+            animation: fadeUp 0.7s 0.22s ease both;
+        }
 
-            .chip.green {
-                background: #eaf3ec;
-                border-color: #b0cdb8;
-                color: #2e6040;
-            }
+        .articles-banner {
+            display: block;
+            text-decoration: none;
+            background: var(--card);
+            border: 1.5px solid var(--border);
+            border-radius: 22px;
+            padding: 32px 36px;
+            box-shadow: 0 4px 24px var(--shadow);
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.22s, box-shadow 0.22s, border-color 0.22s;
+        }
 
-            .chip.muted {
-                background: var(--bg2);
-            }
+        /* animated gradient bar across top */
+        .articles-banner::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent2), var(--accent3), var(--accent2));
+            background-size: 200% 100%;
+            animation: shimmer 3s linear infinite;
+            border-radius: 22px 22px 0 0;
+        }
+
+        /* subtle warm glow in corner */
+        .articles-banner::after {
+            content: '';
+            position: absolute;
+            top: -60px; right: -60px;
+            width: 220px; height: 220px;
+            background: radial-gradient(circle, rgba(232,169,126,0.18) 0%, transparent 70%);
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .articles-banner:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 48px var(--shadow);
+            border-color: var(--accent2);
+        }
+
+        .articles-banner:hover::after {
+            opacity: 1.5;
+        }
+
+        .articles-banner-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .articles-banner-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .articles-icon {
+            width: 52px; height: 52px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #fdf0e4, #f5dcc4);
+            border: 1.5px solid #e8c4a0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 22px;
+            box-shadow: 0 2px 10px rgba(196,112,58,0.12);
+        }
+
+        .articles-copy {}
+
+        .articles-eyebrow {
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 4px;
+        }
+
+        .articles-title {
+            font-family: 'Lora', serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text);
+            line-height: 1.2;
+        }
+
+        .articles-subtitle {
+            margin-top: 5px;
+            font-size: 0.9rem;
+            color: var(--text-soft);
+            line-height: 1.5;
+        }
+
+        .articles-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 22px;
+            border-radius: 999px;
+            background: var(--accent);
+            color: #fff;
+            font-size: 0.88rem;
+            font-weight: 400;
+            white-space: nowrap;
+            box-shadow: 0 3px 14px rgba(196,112,58,0.30);
+            transition: background 0.18s, transform 0.15s, gap 0.15s;
+            flex-shrink: 0;
+        }
+
+        .articles-banner:hover .articles-cta {
+            background: #b05e2e;
+            transform: translateY(-1px);
+            gap: 11px;
+        }
+
+        /* latest article preview pills */
+        .articles-preview {
+            display: flex;
+            gap: 8px;
+            margin-top: 18px;
+            flex-wrap: wrap;
+        }
+
+        .preview-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 999px;
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            font-size: 0.78rem;
+            color: var(--text-soft);
+        }
+
+        .preview-pill-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--accent2);
+            flex-shrink: 0;
+        }
+
+        @keyframes shimmer {
+            0%   { background-position: 0% 0%; }
+            100% { background-position: 200% 0%; }
+        }
+
+        /* ── pulse animation on the eyebrow ── */
+        .articles-eyebrow::before {
+            content: '● ';
+            font-size: 0.6rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50%       { opacity: 0.3; }
+        }
 
         /* ── projects ── */
         .projects {
@@ -287,22 +394,18 @@
             position: relative;
             overflow: hidden;
         }
-
-            .project-card::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 4px;
-                height: 100%;
-                background: linear-gradient(180deg, var(--accent2), var(--accent3));
-                border-radius: 4px 0 0 4px;
-            }
-
-            .project-card:hover {
-                transform: translateY(-4px);
-                box-shadow: 0 12px 40px var(--shadow);
-            }
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 4px; height: 100%;
+            background: linear-gradient(180deg, var(--accent2), var(--accent3));
+            border-radius: 4px 0 0 4px;
+        }
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px var(--shadow);
+        }
 
         .project-header {
             display: flex;
@@ -311,14 +414,12 @@
             gap: 16px;
             flex-wrap: wrap;
         }
-
         .project-name {
             font-family: 'Lora', serif;
             font-size: 1.3rem;
             font-weight: 600;
             color: var(--text);
         }
-
         .project-badge {
             font-size: 0.75rem;
             padding: 3px 10px;
@@ -329,21 +430,18 @@
             white-space: nowrap;
             margin-top: 3px;
         }
-
         .project-desc {
             margin-top: 10px;
             color: var(--text-soft);
             font-size: 0.95rem;
             line-height: 1.7;
         }
-
         .project-tags {
             display: flex;
             flex-wrap: wrap;
             gap: 7px;
             margin-top: 16px;
         }
-
         .project-tag {
             font-size: 0.78rem;
             padding: 3px 11px;
@@ -352,14 +450,12 @@
             border: 1px solid var(--border);
             color: var(--text-soft);
         }
-
         .project-links {
             display: flex;
             gap: 10px;
             margin-top: 20px;
             flex-wrap: wrap;
         }
-
         .proj-btn {
             display: inline-flex;
             align-items: center;
@@ -372,33 +468,28 @@
             transition: all 0.18s;
             cursor: pointer;
         }
+        .proj-btn.primary {
+            background: var(--accent);
+            color: #fff;
+            border: 1.5px solid var(--accent);
+            box-shadow: 0 2px 10px rgba(196,112,58,0.25);
+        }
+        .proj-btn.primary:hover {
+            background: #b05e2e;
+            border-color: #b05e2e;
+            transform: translateY(-1px);
+        }
+        .proj-btn.ghost {
+            background: transparent;
+            color: var(--text-soft);
+            border: 1.5px solid var(--border);
+        }
+        .proj-btn.ghost:hover {
+            background: var(--bg2);
+            color: var(--text);
+            transform: translateY(-1px);
+        }
 
-            .proj-btn.primary {
-                background: var(--accent);
-                color: #fff;
-                border: 1.5px solid var(--accent);
-                box-shadow: 0 2px 10px rgba(196,112,58,0.25);
-            }
-
-                .proj-btn.primary:hover {
-                    background: #b05e2e;
-                    border-color: #b05e2e;
-                    transform: translateY(-1px);
-                }
-
-            .proj-btn.ghost {
-                background: transparent;
-                color: var(--text-soft);
-                border: 1.5px solid var(--border);
-            }
-
-                .proj-btn.ghost:hover {
-                    background: var(--bg2);
-                    color: var(--text);
-                    transform: translateY(-1px);
-                }
-
-        /* ── footer ── */
         footer {
             position: relative;
             z-index: 1;
@@ -409,30 +500,17 @@
             border-top: 1px solid var(--border);
         }
 
-        /* ── animations ── */
         @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(22px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(22px); }
+            to   { opacity: 1; transform: translateY(0); }
         }
 
-        /* ── responsive ── */
-        @media (max-width: 560px) {
-            .hero {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 24px;
-            }
-
-            main {
-                padding: 48px 20px 80px;
-            }
+        @media (max-width: 640px) {
+            .hero { flex-direction: column; align-items: flex-start; gap: 24px; }
+            main { padding: 48px 20px 80px; }
+            .articles-banner { padding: 24px 22px; }
+            .articles-banner-inner { flex-direction: column; align-items: flex-start; }
+            .articles-cta { width: 100%; justify-content: center; }
         }
     </style>
 </head>
@@ -461,17 +539,12 @@
                 </p>
                 <div class="hero-links">
                     <a href="https://github.com/violetv0id" class="pill-link" target="_blank" rel="noopener">
-                        <!-- GitHub icon -->
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" /></svg>
                         GitHub
                     </a>
                     <a href="https://discord.gg/SW9jG7PtJf" class="pill-link" target="_blank" rel="noopener">
-                        <!-- Discord icon -->
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z" /></svg>
                         Discord
-                    </a>
-                    <a href="https://violetv0id.github.io/lunark.github.io/articles.html" class="pill-link" target="_blank" rel="noopener">
-                        Articles
                     </a>
                 </div>
             </div>
@@ -491,7 +564,7 @@
 
         <!-- ── SKILLS ── -->
         <div class="section-label">skills & tools</div>
-        <div class="chips" style="margin-bottom: 56px;">
+        <div class="chips">
             <span class="chip warm">C#</span>
             <span class="chip warm">Unity Engine</span>
             <span class="chip warm">OpenGL</span>
@@ -506,7 +579,32 @@
             <span class="chip muted">Real-time Graphics</span>
         </div>
 
-        <!-- -- PROJECTS -- -->
+        <!-- ── ARTICLES FEATURE ── -->
+        <div class="section-label">articles</div>
+        <div class="articles-feature">
+            <a href="https://violetv0id.github.io/lunark.github.io/articles.html" class="articles-banner">
+                <div class="articles-banner-inner">
+                    <div class="articles-banner-left">
+                        <div class="articles-icon">✦</div>
+                        <div class="articles-copy">
+                            <div class="articles-eyebrow">write-ups & deep dives</div>
+                            <div class="articles-title">things i've built, broken & figured out</div>
+                            <div class="articles-subtitle">graphics techniques, engine internals, experiments, and the occasional rabbit hole.</div>
+                        </div>
+                    </div>
+                    <span class="articles-cta">
+                        read articles
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="9 18 15 12 9 6"/></svg>
+                    </span>
+                </div>
+                <div class="articles-preview">
+                    <span class="preview-pill"><span class="preview-pill-dot"></span>Networking Basics — march 2026</span>
+                    <span class="preview-pill">more coming soon ✦</span>
+                </div>
+            </a>
+        </div>
+
+        <!-- ── PROJECTS ── -->
         <div class="section-label">projects</div>
         <div class="projects">
 
