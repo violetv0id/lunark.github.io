@@ -45,19 +45,11 @@
       z-index: 0;
     }
 
-    .blob {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(80px);
-      opacity: 0.22;
-      pointer-events: none;
-      z-index: 0;
-    }
+    .blob { position: fixed; border-radius: 50%; filter: blur(80px); opacity: 0.22; pointer-events: none; z-index: 0; }
     .blob-1 { width: 520px; height: 520px; background: #e8b48a; top: -120px; right: -100px; }
     .blob-2 { width: 400px; height: 400px; background: #a8c8b0; bottom: 60px; left: -80px; }
     .blob-3 { width: 280px; height: 280px; background: #f0d0a0; top: 45%; left: 35%; }
 
-    /* ── layout ── */
     main {
       position: relative;
       z-index: 1;
@@ -66,7 +58,6 @@
       padding: 80px 32px 120px;
     }
 
-    /* ── back link ── */
     .back-link {
       display: inline-flex;
       align-items: center;
@@ -79,7 +70,6 @@
     }
     .back-link:hover { color: var(--accent); gap: 10px; }
 
-    /* ── page header ── */
     .page-header {
       margin-bottom: 56px;
       animation: fadeUp 0.7s ease both;
@@ -100,7 +90,7 @@
       max-width: 520px;
     }
 
-    /* ── filter chips ── */
+    /* ── filters ── */
     .filters {
       display: flex;
       flex-wrap: wrap;
@@ -150,45 +140,25 @@
       content: '';
       position: absolute;
       top: 0; left: 0;
-      width: 4px;
-      height: 100%;
+      width: 4px; height: 100%;
       background: linear-gradient(180deg, var(--accent2), var(--accent3));
       border-radius: 4px 0 0 4px;
       opacity: 0;
       transition: opacity 0.2s;
     }
-    .article-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 36px var(--shadow);
-      border-color: var(--accent2);
-    }
+    .article-card:hover { transform: translateY(-3px); box-shadow: 0 10px 36px var(--shadow); border-color: var(--accent2); }
     .article-card:hover::before { opacity: 1; }
 
-    /* disabled / coming soon state */
-    .article-card.coming-soon {
-      opacity: 0.5;
-      pointer-events: none;
-      cursor: default;
-    }
+    /* hidden by active filter */
+    .article-card[hidden] { display: none; }
 
-    .article-meta {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 10px;
-    }
-    .article-date {
-      font-size: 0.78rem;
-      color: var(--text-soft);
-    }
+    .article-meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+    .article-date { font-size: 0.78rem; color: var(--text-soft); }
     .article-tag {
-      font-size: 0.75rem;
-      padding: 2px 10px;
+      font-size: 0.75rem; padding: 2px 10px;
       border-radius: 999px;
       border: 1px solid var(--border);
-      background: var(--bg2);
-      color: var(--text-soft);
+      background: var(--bg2); color: var(--text-soft);
     }
     .article-tag.rendering { background: #fdf0e4; border-color: #e8c4a0; color: #8a4a20; }
     .article-tag.engine    { background: #eaf3ec; border-color: #b0cdb8; color: #2e6040; }
@@ -197,71 +167,59 @@
 
     .article-title {
       font-family: 'Lora', serif;
-      font-size: 1.15rem;
-      font-weight: 600;
-      color: var(--text);
-      line-height: 1.35;
+      font-size: 1.15rem; font-weight: 600;
+      color: var(--text); line-height: 1.35;
       margin-bottom: 8px;
       transition: color 0.18s;
     }
     .article-card:hover .article-title { color: var(--accent); }
 
-    .article-excerpt {
-      font-size: 0.92rem;
-      color: var(--text-soft);
-      line-height: 1.65;
-    }
+    .article-excerpt { font-size: 0.92rem; color: var(--text-soft); line-height: 1.65; }
 
     .article-footer {
-      display: flex;
-      align-items: center;
+      display: flex; align-items: center;
       justify-content: space-between;
-      margin-top: 16px;
-      flex-wrap: wrap;
-      gap: 8px;
+      margin-top: 16px; flex-wrap: wrap; gap: 8px;
     }
-    .read-time {
-      font-size: 0.78rem;
-      color: var(--text-soft);
-    }
+    .read-time { font-size: 0.78rem; color: var(--text-soft); }
     .read-more {
-      font-size: 0.82rem;
-      color: var(--accent);
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      font-weight: 400;
+      font-size: 0.82rem; color: var(--accent);
+      display: flex; align-items: center; gap: 5px;
       transition: gap 0.15s;
     }
     .article-card:hover .read-more { gap: 8px; }
 
-    /* ── section divider ── */
-    .section-label {
-      font-family: 'Lora', serif;
-      font-size: 1.05rem;
-      font-weight: 600;
-      color: var(--text-soft);
-      margin: 48px 0 20px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-style: italic;
+    /* skeleton */
+    .article-skeleton {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: 18px;
+      padding: 26px 28px;
+      display: flex; flex-direction: column; gap: 12px;
     }
-    .section-label::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
+    .skel-line {
+      border-radius: 6px;
+      background: linear-gradient(90deg, var(--bg2) 25%, var(--bg3) 50%, var(--bg2) 75%);
+      background-size: 200% 100%;
+      animation: skelShimmer 1.4s ease infinite;
+    }
+    @keyframes skelShimmer {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
     }
 
-    /* ── footer ── */
-    footer {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      padding: 32px;
+    /* empty state */
+    .empty-state {
       color: var(--text-soft);
-      font-size: 0.82rem;
+      font-size: 0.92rem;
+      padding: 24px 0;
+      font-style: italic;
+    }
+
+    footer {
+      position: relative; z-index: 1;
+      text-align: center; padding: 32px;
+      color: var(--text-soft); font-size: 0.82rem;
       border-top: 1px solid var(--border);
     }
 
@@ -288,7 +246,6 @@
       back to portfolio
     </a>
 
-    <!-- ── PAGE HEADER ── -->
     <div class="page-header">
       <h1>articles <span>✦</span></h1>
       <p>
@@ -297,50 +254,100 @@
       </p>
     </div>
 
-    <!-- ── FILTERS ── -->
-    <div class="filters">
-      <span class="filter-chip active">all</span>
-      <span class="filter-chip">rendering</span>
-      <span class="filter-chip">engine</span>
-      <span class="filter-chip">graphics</span>
-      <span class="filter-chip">systems</span>
+    <div class="filters" id="filters">
+      <span class="filter-chip active" data-filter="all">all</span>
+      <span class="filter-chip" data-filter="rendering">rendering</span>
+      <span class="filter-chip" data-filter="engine">engine</span>
+      <span class="filter-chip" data-filter="graphics">graphics</span>
+      <span class="filter-chip" data-filter="systems">systems</span>
     </div>
 
-    <!-- ── ARTICLES ── -->
-    <div class="article-list">
-
-      <!-- Example article — duplicate this block for each new article -->
-      <a href="articles/networking-basics.html" class="article-card">
-        <div class="article-meta">
-          <span class="article-date">march 2026</span>
-          <span class="article-tag rendering">rendering</span>
-          <span class="article-tag graphics">graphics</span>
-        </div>
-        <div class="article-title">Networking Basics</div>
-        <p class="article-excerpt">
-          Multiplayer is often a key feature in video games nowadays. The problem? Not many people
-          are there to teach you rights and wrongs, or help you pick which Multiplayer provider
-          is best for your project.
-        </p>
-        <div class="article-footer">
-          <span class="read-time">~8 min read</span>
-          <span class="read-more">
-            read article
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="9 18 15 12 9 6"/></svg>
-          </span>
-        </div>
-      </a>
-
+    <div class="article-list" id="article-list">
+      <!-- skeletons shown while loading -->
+      <div class="article-skeleton">
+        <div class="skel-line" style="height:12px; width:55%;"></div>
+        <div class="skel-line" style="height:20px; width:75%;"></div>
+        <div class="skel-line" style="height:12px; width:100%;"></div>
+        <div class="skel-line" style="height:12px; width:80%;"></div>
+      </div>
+      <div class="article-skeleton">
+        <div class="skel-line" style="height:12px; width:45%;"></div>
+        <div class="skel-line" style="height:20px; width:85%;"></div>
+        <div class="skel-line" style="height:12px; width:100%;"></div>
+        <div class="skel-line" style="height:12px; width:65%;"></div>
+      </div>
     </div>
-
-    <!-- ── MORE COMING ── -->
-
 
   </main>
 
-  <footer>
-    ✦<strong>lunark</strong>✦
-  </footer>
+  <footer>✦<strong>lunark</strong>✦</footer>
+
+  <script>
+    const TAG_CLASSES = { rendering: 'rendering', graphics: 'graphics', engine: 'engine', systems: 'systems' };
+    let allArticles = [];
+    let activeFilter = 'all';
+
+    function renderArticles() {
+      const list = document.getElementById('article-list');
+      list.innerHTML = '';
+
+      const filtered = activeFilter === 'all'
+        ? allArticles
+        : allArticles.filter(a => (a.tags || []).includes(activeFilter));
+
+      if (!filtered.length) {
+        list.innerHTML = `<p class="empty-state">nothing here yet under <em>${activeFilter}</em> — check back soon ✦</p>`;
+        return;
+      }
+
+      filtered.forEach(a => {
+        const tags = (a.tags || []).map(t => `<span class="article-tag ${TAG_CLASSES[t] || ''}">${t}</span>`).join('');
+        const card = document.createElement('a');
+        card.href = `articles/${a.slug}.html`;
+        card.className = 'article-card';
+        card.dataset.tags = (a.tags || []).join(',');
+        card.innerHTML = `
+          <div class="article-meta">
+            <span class="article-date">${a.date}</span>
+            ${tags}
+          </div>
+          <div class="article-title">${a.title}</div>
+          <p class="article-excerpt">${a.excerpt}</p>
+          <div class="article-footer">
+            <span class="read-time">${a.readTime}</span>
+            <span class="read-more">
+              read article
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="9 18 15 12 9 6"/></svg>
+            </span>
+          </div>`;
+        list.appendChild(card);
+      });
+    }
+
+    async function loadArticles() {
+      try {
+        const res = await fetch('articles/manifest.json');
+        if (!res.ok) throw new Error();
+        allArticles = await res.json();
+        renderArticles();
+      } catch {
+        document.getElementById('article-list').innerHTML =
+          `<p class="empty-state">couldn't load articles — try refreshing the page.</p>`;
+      }
+    }
+
+    // filter chip interaction
+    document.getElementById('filters').addEventListener('click', e => {
+      const chip = e.target.closest('.filter-chip');
+      if (!chip) return;
+      document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      activeFilter = chip.dataset.filter;
+      renderArticles();
+    });
+
+    loadArticles();
+  </script>
 
 </body>
 </html>
