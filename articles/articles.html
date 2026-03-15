@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lunark — articles</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@200;300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after { cursor: none !important; }
+
+    :root {
+      --bg:        #080d12;
+      --bg2:       #0d1520;
+      --bg3:       #121e2e;
+      --surface:   #101822;
+      --text:      #dce8f5;
+      --text-soft: #7a9ab8;
+      --text-dim:  #3d5a72;
+      --accent:    #7eb8e8;
+      --accent2:   #a8d4f5;
+      --frost:     rgba(126, 184, 232, 0.07);
+      --frost2:    rgba(168, 212, 245, 0.04);
+      --border:    rgba(126, 184, 232, 0.12);
+      --border2:   rgba(126, 184, 232, 0.06);
+      --shadow:    rgba(0, 20, 40, 0.55);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Geist', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* ── cursor ── */
+    .cursor {
+      position: fixed; width: 8px; height: 8px;
+      background: var(--accent2); border-radius: 50%;
+      pointer-events: none; z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s, height 0.2s;
+      mix-blend-mode: screen;
+    }
+    .cursor-ring {
+      position: fixed; width: 28px; height: 28px;
+      border: 1px solid rgba(126,184,232,0.4); border-radius: 50%;
+      pointer-events: none; z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: width 0.25s, height 0.25s;
+    }
+
+    /* ── grain ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+      background-size: 160px; pointer-events: none; z-index: 0; opacity: 0.6;
+    }
+
+    /* ── scanline ── */
+    body::after {
+      content: ''; position: fixed; inset: 0;
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,20,40,0.03) 2px, rgba(0,20,40,0.03) 4px);
+      pointer-events: none; z-index: 0;
+    }
+
+    #snow-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: 0.55; }
+
+    .blob {
+      position: fixed; border-radius: 50%; filter: blur(100px);
+      opacity: 0.18; pointer-events: none; z-index: 0;
+      mix-blend-mode: screen;
+      animation: blobDrift 28s ease-in-out infinite alternate;
+    }
+    .blob-1 { width: 700px; height: 700px; background: #4a8ab8; top: -200px; right: -180px; }
+    .blob-2 { width: 500px; height: 500px; background: #1a4a78; bottom: 0; left: -100px; animation-delay: -10s; }
+    .blob-3 { width: 300px; height: 300px; background: #6ab0e0; top: 40%; left: 30%; opacity: 0.10; animation-delay: -18s; }
+
+    @keyframes blobDrift {
+      from { transform: translate(0,0) scale(1); }
+      to   { transform: translate(30px,20px) scale(1.05); }
+    }
+
+    main {
+      position: relative; z-index: 1;
+      max-width: 860px; margin: 0 auto;
+      padding: 90px 32px 140px;
+    }
+
+    .back-link {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: 0.85rem; color: var(--text-dim);
+      text-decoration: none; margin-bottom: 52px;
+      transition: color 0.18s, gap 0.18s;
+    }
+    .back-link:hover { color: var(--accent2); gap: 10px; }
+
+    .page-header {
+      margin-bottom: 60px;
+      animation: fadeUp 0.9s ease both;
+    }
+    .page-header h1 {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(2rem, 5vw, 2.9rem);
+      font-weight: 400; font-style: italic;
+      color: var(--text); letter-spacing: -0.01em;
+    }
+    .page-header h1 span { color: var(--accent2); }
+    .page-header p {
+      margin-top: 14px; color: var(--text-soft);
+      font-size: 0.97rem; line-height: 1.7; max-width: 520px;
+    }
+
+    /* ── filters ── */
+    .filters {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      margin-bottom: 40px;
+      animation: fadeUp 0.9s 0.1s ease both;
+    }
+    .filter-chip {
+      padding: 5px 15px; border-radius: 999px;
+      font-size: 0.8rem; border: 1px solid var(--border2);
+      background: var(--frost2); color: var(--text-dim);
+      cursor: none; transition: all 0.18s; user-select: none;
+    }
+    .filter-chip:hover { border-color: var(--border); color: var(--text-soft); background: var(--frost); }
+    .filter-chip.active { background: rgba(126,184,232,0.14); border-color: var(--accent); color: var(--accent2); }
+
+    /* ── article list ── */
+    .article-list {
+      display: grid; gap: 14px;
+      animation: fadeUp 0.9s 0.18s ease both;
+    }
+
+    .article-card {
+      background: var(--surface); border: 1px solid var(--border2);
+      border-radius: 18px; padding: 26px 28px;
+      box-shadow: 0 4px 24px var(--shadow);
+      text-decoration: none; color: inherit;
+      display: block; position: relative; overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+    .article-card::before {
+      content: ''; position: absolute; top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: linear-gradient(180deg, rgba(126,184,232,0.5), rgba(126,184,232,0.1));
+      border-radius: 3px 0 0 3px; opacity: 0; transition: opacity 0.2s;
+    }
+    .article-card::after {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(126,184,232,0.2), transparent);
+      opacity: 0; transition: opacity 0.2s;
+    }
+    .article-card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px var(--shadow); border-color: rgba(126,184,232,0.2); }
+    .article-card:hover::before, .article-card:hover::after { opacity: 1; }
+
+    .article-meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+    .article-date { font-size: 0.76rem; color: var(--text-dim); }
+    .article-tag {
+      font-size: 0.72rem; padding: 2px 10px; border-radius: 999px;
+      border: 1px solid var(--border2); background: var(--frost2); color: var(--text-dim);
+    }
+    .article-tag.rendering,
+    .article-tag.graphics  { background: rgba(126,184,232,0.06); border-color: rgba(126,184,232,0.18); color: #6aa0c8; }
+    .article-tag.engine    { background: rgba(100,160,220,0.05); border-color: rgba(100,160,220,0.14); color: #5890b8; }
+    .article-tag.systems   { background: rgba(140,190,240,0.04); border-color: rgba(140,190,240,0.12); color: #5a8aaa; }
+    .article-tag.networking { background: rgba(160,180,240,0.06); border-color: rgba(160,180,240,0.18); color: #7888c8; }
+
+    .article-title {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.15rem; color: var(--text); line-height: 1.35;
+      margin-bottom: 8px; transition: color 0.18s;
+    }
+    .article-card:hover .article-title { color: var(--accent2); }
+
+    .article-excerpt { font-size: 0.9rem; color: var(--text-dim); line-height: 1.65; }
+
+    .article-footer {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      margin-top: 16px; flex-wrap: wrap; gap: 8px;
+    }
+    .read-time { font-size: 0.76rem; color: var(--text-dim); }
+    .read-more {
+      font-size: 0.8rem; color: var(--accent);
+      display: flex; align-items: center; gap: 5px; transition: gap 0.15s;
+    }
+    .article-card:hover .read-more { gap: 8px; }
+
+    /* skeleton */
+    .article-skeleton {
+      background: var(--surface); border: 1px solid var(--border2);
+      border-radius: 18px; padding: 26px 28px;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .skel-line {
+      border-radius: 4px;
+      background: linear-gradient(90deg, var(--bg2) 25%, var(--bg3) 50%, var(--bg2) 75%);
+      background-size: 200% 100%;
+      animation: skelShimmer 1.6s ease infinite;
+    }
+    @keyframes skelShimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+    .empty-state { color: var(--text-dim); font-size: 0.9rem; padding: 24px 0; font-style: italic; }
+
+    footer {
+      position: relative; z-index: 1;
+      text-align: center; padding: 36px;
+      color: var(--text-dim); font-size: 0.8rem;
+      border-top: 1px solid var(--border2); letter-spacing: 0.08em;
+    }
+    footer strong { color: var(--text-soft); font-weight: 400; font-style: italic; font-family: 'Instrument Serif', serif; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 560px) { main { padding: 56px 20px 90px; } }
+  </style>
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursor-ring"></div>
+  <canvas id="snow-canvas"></canvas>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <main>
+
+    <a href="https://violetv0id.github.io/lunark.github.io/" class="back-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="15 18 9 12 15 6"/></svg>
+      back to portfolio
+    </a>
+
+    <div class="page-header">
+      <h1>articles <span>✦</span></h1>
+      <p>
+        write-ups on things i've built, broken, and figured out — graphics techniques,
+        engine internals, experiments, and the occasional rabbit hole.
+      </p>
+    </div>
+
+    <div class="filters" id="filters">
+      <span class="filter-chip active" data-filter="all">all</span>
+      <span class="filter-chip" data-filter="rendering">rendering</span>
+      <span class="filter-chip" data-filter="engine">engine</span>
+      <span class="filter-chip" data-filter="graphics">graphics</span>
+      <span class="filter-chip" data-filter="systems">systems</span>
+      <span class="filter-chip" data-filter="networking">networking</span>
+    </div>
+
+    <div class="article-list" id="article-list">
+      <div class="article-skeleton">
+        <div class="skel-line" style="height:11px; width:50%;"></div>
+        <div class="skel-line" style="height:18px; width:75%;"></div>
+        <div class="skel-line" style="height:11px; width:100%;"></div>
+        <div class="skel-line" style="height:11px; width:70%;"></div>
+      </div>
+      <div class="article-skeleton">
+        <div class="skel-line" style="height:11px; width:42%;"></div>
+        <div class="skel-line" style="height:18px; width:85%;"></div>
+        <div class="skel-line" style="height:11px; width:100%;"></div>
+        <div class="skel-line" style="height:11px; width:60%;"></div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>✦ <strong>lunark</strong> ✦</footer>
+
+  <script>
+    /* ── cursor ── */
+    const cursor = document.getElementById('cursor');
+    const ring   = document.getElementById('cursor-ring');
+    let mx = -100, my = -100, rx = -100, ry = -100;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+    (function animCursor() {
+      cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+      rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+      requestAnimationFrame(animCursor);
+    })();
+    document.querySelectorAll('a, .filter-chip').forEach(el => {
+      el.addEventListener('mouseenter', () => { cursor.style.width='14px'; cursor.style.height='14px'; ring.style.width='42px'; ring.style.height='42px'; });
+      el.addEventListener('mouseleave', () => { cursor.style.width='8px'; cursor.style.height='8px'; ring.style.width='28px'; ring.style.height='28px'; });
+    });
+
+    /* ── snow ── */
+    const canvas = document.getElementById('snow-canvas');
+    const ctx = canvas.getContext('2d');
+    let W, H, flakes = [];
+    function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+    resize(); window.addEventListener('resize', resize);
+    for (let i = 0; i < 120; i++) flakes.push({ x: Math.random()*2000-500, y: Math.random()*2000, r: Math.random()*1.6+0.3, speed: Math.random()*0.35+0.08, drift: (Math.random()-0.5)*0.12, alpha: Math.random()*0.45+0.08, wobble: Math.random()*Math.PI*2, wobbleSpeed: (Math.random()-0.5)*0.008 });
+    (function drawSnow() {
+      ctx.clearRect(0,0,W,H);
+      flakes.forEach(f => {
+        f.wobble += f.wobbleSpeed; f.x += f.drift + Math.sin(f.wobble)*0.15; f.y += f.speed;
+        if (f.y > H+20) { f.y=-10; f.x=Math.random()*W; }
+        if (f.x > W+20) f.x=-10; if (f.x < -20) f.x=W+10;
+        ctx.beginPath(); ctx.arc(f.x,f.y,f.r,0,Math.PI*2);
+        ctx.fillStyle=`rgba(200,225,255,${f.alpha})`; ctx.fill();
+      });
+      requestAnimationFrame(drawSnow);
+    })();
+
+    /* ── articles ── */
+    const TAG_CLASSES = { rendering:'rendering', graphics:'graphics', engine:'engine', systems:'systems', networking:'networking' };
+    let allArticles = [], activeFilter = 'all';
+
+    function renderArticles() {
+      const list = document.getElementById('article-list');
+      list.innerHTML = '';
+      const filtered = activeFilter === 'all' ? allArticles : allArticles.filter(a => (a.tags||[]).includes(activeFilter));
+      if (!filtered.length) {
+        list.innerHTML = `<p class="empty-state">nothing here yet under <em>${activeFilter}</em> — check back soon ✦</p>`;
+        return;
+      }
+      filtered.forEach(a => {
+        const tags = (a.tags||[]).map(t => `<span class="article-tag ${TAG_CLASSES[t]||''}">${t}</span>`).join('');
+        const card = document.createElement('a');
+        card.href = `articles/${a.slug}.html`;
+        card.className = 'article-card';
+        card.innerHTML = `
+          <div class="article-meta"><span class="article-date">${a.date}</span>${tags}</div>
+          <div class="article-title">${a.title}</div>
+          <p class="article-excerpt">${a.excerpt}</p>
+          <div class="article-footer">
+            <span class="read-time">${a.readTime}</span>
+            <span class="read-more">read article <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="9 18 15 12 9 6"/></svg></span>
+          </div>`;
+        list.appendChild(card);
+      });
+    }
+
+    async function loadArticles() {
+      try {
+        const res = await fetch('articles/manifest.json');
+        if (!res.ok) throw new Error();
+        allArticles = await res.json();
+        renderArticles();
+      } catch {
+        document.getElementById('article-list').innerHTML = `<p class="empty-state">couldn't load articles — try refreshing the page.</p>`;
+      }
+    }
+
+    document.getElementById('filters').addEventListener('click', e => {
+      const chip = e.target.closest('.filter-chip');
+      if (!chip) return;
+      document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      activeFilter = chip.dataset.filter;
+      renderArticles();
+    });
+
+    loadArticles();
+  </script>
+
+</body>
+</html>

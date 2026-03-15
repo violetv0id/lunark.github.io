@@ -2,7 +2,7 @@
   {
     "slug": "networking-basics",
     "title": "Networking Basics",
-    "excerpt": "Multiplayer is often a key feature in video games nowadays. The problem? Not many people are there to teach you rights and wrongs, or help you pick which Multiplayer provider is best for your project.",
+    "excerpt": "a short blog about the basics of networking in game development.",
     "date": "march 2026",
     "tags": ["networking"],
     "readTime": "~8 min read"
